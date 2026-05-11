@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool & Deadly Reggae | Premium Live Stream</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="noise-overlay"></div>
+
+    <nav class="top-nav">
+        <div class="nav-container">
+            <a href="#" class="brand">
+                <img src="Logo.png" alt="Cool and Deadly Reggae" class="nav-logo">
+            </a>
+            <div class="nav-links">
+                <a href="#listen">LISTEN LIVE</a>
+                <a href="#manifesto">OUR VIBE</a>
+                <a href="#dancehall">THE DANCEHALL</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HEADER IMAGE (< 1/3 Screen) -->
+    <div class="hero-banner-section">
+        <img src="assets/media__1778368308623.jpg" alt="Cool and Deadly Vintage Reggae Sound System" class="hero-banner-img">
+    </div>
+
+    <!-- MAIN DASHBOARD (2/3 Screen, No Scrolling required) -->
+    <main class="main-content" id="listen">
+        <section class="radio-dashboard">
+            
+            <!-- LEFT: NOW PLAYING -->
+            <div class="player-wrapper">
+                <div class="player-housing">
+                    <div class="player-grill">
+                        <div class="now-playing-info left-panel">
+                            <h3 id="track-title" class="track-title">Loading...</h3>
+                            <h4 id="track-artist" class="track-artist">Please wait</h4>
+                        </div>
+
+                        <div class="turntable-area">
+                            <img src="Logo.png" alt="Cool and Deadly Base" class="logo-base">
+                            <img id="album-art" src="coolanddeadlyreggae no album cover art found.png" alt="Currently Playing" class="record-sleeve">
+                            <div id="record-hole" class="record-hole"></div>
+                        </div>
+
+                        <div class="minimal-controls right-panel">
+                            <button id="play-btn" class="simple-btn play-icon">▶</button>
+                        </div>
+                        
+                        <audio id="audio-stream" src="https://a13.asurahosting.com/listen/coolanddeadlyreggae.com/radio.mp3" preload="none" autoplay></audio>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: RECENTLY PLAYED -->
+            <div class="history-wrapper">
+                <h2 class="history-title">RECENTLY SPUN</h2>
+                <div class="history-list" id="history-grid">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+        </section>
+
+        <!-- MANIFESTO SECTION (Below the fold) -->
+        <section class="manifesto-section" id="manifesto">
+            <h2 class="manifesto-heading">THE GOOD OLD REGGAE</h2>
+            <div class="manifesto-text">
+                <p>Are you seeking out rare obscure records to find the music you love—artists like Bob Marley, Dennis Brown, Beres Hammond, Ben Boothe, Alton Ellis and Delroy Wilson?</p>
+                <p>Are you looking for throwback rhythms that evoke memories both shared and unique?</p>
+                <p>Are you feeling frustrated with the current direction of reggae music and want back the good old reggae?</p>
+                <p>Most die-hard reggae fans are finding it more and more challenging to find some fresh, classic reggae sounds. Our radio jockeys had that experience and that is why we are designed specifically for those seeking that signature oldies culture, lovers rock sound and 80's dancehall. This website is bursting with reggae from decades of roots and dancehall. Giving you our listeners access to throwback rhythms that evoke memories both shared and unique. So if you are in search of some vintage tunes, look no further than coolanddeadlyreggae.com!</p>
+            </div>
+        </section>
+
+        <!-- DANCEHALL CHAT -->
+        <section class="chat-section" id="dancehall">
+            <h2 class="manifesto-heading">THE DANCEHALL (LIVE CHAT)</h2>
+            <div class="chat-container">
+                <div class="chat-messages">
+                    <div class="message"><span class="user">Selector:</span> Welcome to the dance!</div>
+                </div>
+                <div class="chat-input-area">
+                    <input type="text" placeholder="Send a message to the dancehall...">
+                    <button class="send-btn">SEND</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Cool and Deadly Reggae. Strictly Roots & Culture.</p>
+    </footer>
+</body>
+</html>
