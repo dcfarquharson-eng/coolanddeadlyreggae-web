@@ -21,7 +21,7 @@
             <div class="nav-links">
                 <a href="#listen">LISTEN LIVE</a>
                 <a href="#manifesto">OUR VIBE</a>
-                <a href="#dancehall">THE DANCEHALL</a>
+                <a href="#dancehall">CHATROOM</a>
             </div>
         </div>
     </nav>
@@ -82,18 +82,20 @@
 
         <!-- DANCEHALL CHAT -->
         <section class="chat-section" id="dancehall">
-            <h2 class="manifesto-heading">THE DANCEHALL (LIVE CHAT)</h2>
+            <h2 class="manifesto-heading">THE CHATROOM</h2>
             <div class="chat-container">
-                <div class="chat-messages">
-                    <div class="message"><span class="user">Selector:</span> Welcome to the dance!</div>
+                <div class="chat-messages" id="chat-messages">
+                    <div class="message"><span class="user" style="color: #FCD116;">Selector:</span> Welcome to the dance! Loading vibes...</div>
                 </div>
                 <div class="chat-input-area">
-                    <input type="text" placeholder="Send a message to the dancehall...">
-                    <button class="send-btn">SEND</button>
+                    <input type="text" id="chat-input" placeholder="Type a message...">
+                    <button class="send-btn" id="chat-send-btn">SEND</button>
                 </div>
             </div>
         </section>
     </main>
+
+    <script type="module" src="chat.js"></script>
 
     <footer>
         <p>&copy; 2026 Cool and Deadly Reggae. Strictly Roots & Culture.</p>

@@ -94,7 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data && data.now_playing && data.now_playing.song) {
                 const song = data.now_playing.song;
                 
-                trackTitle.textContent = song.title || "Live Stream";
+                const currentTitle = song.title || "Live Stream";
+                trackTitle.textContent = currentTitle;
+                
+                // Dynamically reduce font size for very long titles
+                if (currentTitle.length > 40) {
+                    trackTitle.style.fontSize = '1.0rem';
+                } else if (currentTitle.length > 25) {
+                    trackTitle.style.fontSize = '1.15rem';
+                } else {
+                    trackTitle.style.fontSize = ''; // Reset to default
+                }
+
                 trackArtist.textContent = song.artist || "Cool and Deadly Reggae";
 
                 const isLiveDJ = (song.artist.toLowerCase().includes('live') || song.title.toLowerCase().includes('live') || song.artist.toLowerCase().includes('dj'));
@@ -137,11 +148,21 @@ document.addEventListener('DOMContentLoaded', () => {
                         const item = data.song_history[i];
                         const s = item.song;
                         
+                        const sTitle = s.title || "Unknown";
+                        let titleStyle = "";
+                        
+                        // Dynamically reduce font size in history grid for long titles
+                        if (sTitle.length > 35) {
+                            titleStyle = "font-size: 0.85rem;";
+                        } else if (sTitle.length > 20) {
+                            titleStyle = "font-size: 0.95rem;";
+                        }
+
                         const div = document.createElement('div');
                         div.className = 'history-item';
                         div.innerHTML = `
                             <div class="history-info">
-                                <h3 class="history-title-text">${s.title || "Unknown"}</h3>
+                                <h3 class="history-title-text" style="${titleStyle}">${sTitle}</h3>
                                 <p class="history-artist">${s.artist || "Unknown"}</p>
                             </div>
                         `;
