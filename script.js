@@ -106,7 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     trackTitle.style.fontSize = ''; // Reset to default
                 }
 
-                trackArtist.textContent = song.artist || "Cool and Deadly Reggae";
+                const currentArtist = song.artist || "Cool and Deadly Reggae";
+                trackArtist.textContent = currentArtist;
+
+                // Dynamically reduce font size for very long artist names
+                if (currentArtist.length > 40) {
+                    trackArtist.style.fontSize = '0.85rem';
+                } else if (currentArtist.length > 25) {
+                    trackArtist.style.fontSize = '0.95rem';
+                } else {
+                    trackArtist.style.fontSize = ''; // Reset to default
+                }
 
                 const isLiveDJ = (song.artist.toLowerCase().includes('live') || song.title.toLowerCase().includes('live') || song.artist.toLowerCase().includes('dj'));
                 
@@ -158,12 +168,22 @@ document.addEventListener('DOMContentLoaded', () => {
                             titleStyle = "font-size: 0.95rem;";
                         }
 
+                        const sArtist = s.artist || "Unknown";
+                        let artistStyle = "";
+
+                        // Dynamically reduce font size in history grid for long artists
+                        if (sArtist.length > 35) {
+                            artistStyle = "font-size: 0.7rem;";
+                        } else if (sArtist.length > 20) {
+                            artistStyle = "font-size: 0.8rem;";
+                        }
+
                         const div = document.createElement('div');
                         div.className = 'history-item';
                         div.innerHTML = `
                             <div class="history-info">
                                 <h3 class="history-title-text" style="${titleStyle}">${sTitle}</h3>
-                                <p class="history-artist">${s.artist || "Unknown"}</p>
+                                <p class="history-artist" style="${artistStyle}">${sArtist}</p>
                             </div>
                         `;
                         historyGrid.appendChild(div);

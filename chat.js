@@ -105,14 +105,26 @@ function listenForMessages() {
             div.style.borderBottom = "1px dashed #333";
             div.style.paddingBottom = "0.5rem";
             
-            let userHtml = "";
-            if (messageIsDJ) {
-                userHtml = `<span class="user" style="color: var(--color-gold); font-weight: bold;">🎤 ${data.sender_name || 'Anonymous'}:</span>`;
-            } else {
-                userHtml = `<span class="user" style="color: #aaa; font-weight: bold;">${isMe ? 'You' : (data.sender_name || 'Anonymous')}:</span>`;
+            let timeStr = "";
+            if (data.timestamp) {
+                const timestamp = data.timestamp.toDate();
+                let hours = timestamp.getHours();
+                const ampm = hours >= 12 ? 'PM' : 'AM';
+                hours = hours % 12;
+                hours = hours ? hours : 12; 
+                const minutes = timestamp.getMinutes().toString().padStart(2, '0');
+                timeStr = ` • ${hours}:${minutes} ${ampm}`;
             }
 
-            let textHtml = `<span style="color: #fff; margin-left: 8px;">${data.text || ''}</span>`;
+            let userHtml = "";
+            if (messageIsDJ) {
+                userHtml = `<span class="user" style="color: var(--color-gold); font-weight: bold;">🎤 ${data.sender_name || 'Anonymous'}</span>`;
+            } else {
+                userHtml = `<span class="user" style="color: #aaa; font-weight: bold;">${isMe ? 'You' : (data.sender_name || 'Anonymous')}</span>`;
+            }
+
+            let timeHtml = `<span style="color: #666; font-size: 0.8rem; margin-left: 6px;">${timeStr}</span>`;
+            let textHtml = `<span style="color: #fff; margin-left: 8px;">: ${data.text || ''}</span>`;
 
             // DJ Delete Button
             let deleteBtnHtml = "";
@@ -120,7 +132,7 @@ function listenForMessages() {
                 deleteBtnHtml = `<span style="color: red; cursor: pointer; font-size: 0.8rem; float: right; margin-left: 10px;" data-id="${docId}" class="delete-msg-btn">Delete</span>`;
             }
 
-            div.innerHTML = userHtml + textHtml + deleteBtnHtml;
+            div.innerHTML = userHtml + timeHtml + textHtml + deleteBtnHtml;
             chatMessages.appendChild(div);
         });
         
