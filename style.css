@@ -205,14 +205,6 @@ body {
     display: block; /* Always show */
 }
 
-/* The magic fix for the "Square peg in a round hole" */
-.record-sleeve.is-vinyl {
-    object-fit: contain; /* Fit the square without stretching */
-    background-color: #050505; /* Creates a black record center around the art */
-    box-sizing: border-box;
-    padding: 15%; /* Mathematically, 14.6% padding ensures a square's corners perfectly clear the circle's curved edge! */
-}
-
 .record-hole {
     position: absolute;
     width: 12px;
