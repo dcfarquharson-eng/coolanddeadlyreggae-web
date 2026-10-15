@@ -4,11 +4,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cool & Deadly Reggae | Premium Live Stream</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css?v=20261014_2">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
     <script src="script.js" defer></script>
+    <style>
+        /* TOP NAVBAR SOCIAL LINKS */
+        .nav-social {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .nav-social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff3d4;
+            background: rgba(255, 204, 0, 0.12);
+            border: 1px solid rgba(255, 204, 0, 0.35);
+            padding: 0.45rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .nav-social-link:hover {
+            color: #000;
+            background: #ffcc00;
+            border-color: #ffcc00;
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
+            transform: translateY(-2px);
+        }
+        .nav-social-link.group-badge {
+            gap: 4px;
+            padding: 0.35rem 0.65rem;
+            background: rgba(41, 138, 41, 0.25);
+            border: 1px solid #298a29;
+            color: #85e085;
+        }
+        .nav-social-link.group-badge span {
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+        .nav-social-link.group-badge:hover {
+            background: #298a29;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(41, 138, 41, 0.8);
+        }
+
+        /* SOUND SYSTEM COMMUNITY SECTION */
+        .community-section {
+            padding: 4rem 2rem 5rem 2rem;
+            max-width: 1350px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .community-subtitle {
+            color: #d98a3c;
+            font-size: 1.15rem;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 2px;
+            margin-top: -1rem;
+            margin-bottom: 3rem;
+            text-transform: uppercase;
+        }
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 1.25rem;
+        }
+        @media (min-width: 1100px) {
+            .community-grid {
+                grid-template-columns: repeat(5, 1fr);
+            }
+        }
+        .community-card {
+            background: linear-gradient(160deg, #22120a 0%, #120703 100%) !important;
+            border: 2px solid rgba(255, 204, 0, 0.25) !important;
+            border-radius: 14px !important;
+            padding: 2rem 1.4rem !important;
+            text-decoration: none !important;
+            color: #fff3d4 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            position: relative !important;
+            overflow: hidden !important;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7) !important;
+            transition: all 0.35s ease !important;
+        }
+        .community-card:hover {
+            transform: translateY(-8px);
+            border-color: #ffcc00 !important;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(255, 204, 0, 0.4) !important;
+        }
+        .community-card .card-icon {
+            width: 58px;
+            height: 58px;
+            border-radius: 50%;
+            background: rgba(255, 204, 0, 0.12);
+            border: 2px solid #ffcc00;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffcc00;
+            margin-bottom: 1.1rem;
+            transition: transform 0.3s;
+        }
+        .community-card:hover .card-icon {
+            transform: scale(1.15) rotate(6deg);
+            background: #ffcc00;
+            color: #000;
+        }
+        .community-card.group-card {
+            border-color: rgba(41, 138, 41, 0.6) !important;
+            background: linear-gradient(160deg, #152415 0%, #0c150c 100%) !important;
+        }
+        .community-card.group-card .card-icon {
+            border-color: #298a29;
+            color: #85e085;
+            background: rgba(41, 138, 41, 0.15);
+        }
+        .community-card.group-card:hover {
+            border-color: #85e085 !important;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.9), 0 0 25px rgba(41, 138, 41, 0.5) !important;
+        }
+        .community-card.group-card:hover .card-icon {
+            background: #298a29;
+            color: #fff;
+        }
+        .community-card .card-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #298a29;
+            color: #fff;
+            font-size: 0.65rem;
+            font-weight: 800;
+            padding: 3px 8px;
+            border-radius: 4px;
+            letter-spacing: 1px;
+        }
+        .community-card h3 {
+            font-family: 'Rye', serif !important;
+            font-size: 1.25rem !important;
+            color: #ffcc00 !important;
+            margin: 0 0 0.3rem 0 !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.8);
+        }
+        .community-card .handle {
+            font-size: 0.82rem !important;
+            color: #d98a3c !important;
+            font-weight: 700 !important;
+            letter-spacing: 1px !important;
+            margin-bottom: 0.8rem !important;
+            text-transform: uppercase;
+        }
+        .community-card .desc {
+            font-size: 0.88rem !important;
+            color: #ccc !important;
+            line-height: 1.5 !important;
+            margin-bottom: 1.4rem !important;
+            flex-grow: 1 !important;
+        }
+        .community-btn {
+            display: inline-block;
+            padding: 0.6rem 1.3rem;
+            background: rgba(255, 204, 0, 0.15);
+            border: 1px solid #ffcc00;
+            color: #ffcc00 !important;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+        }
+        .community-card:hover .community-btn {
+            background: #ffcc00;
+            color: #000 !important;
+        }
+        .community-btn.vip-btn {
+            background: rgba(41, 138, 41, 0.25);
+            border-color: #298a29;
+            color: #85e085 !important;
+        }
+        .community-card:hover .community-btn.vip-btn {
+            background: #298a29;
+            color: #fff !important;
+        }
+
+        /* MAIN FOOTER */
+        .main-footer {
+            background: #080402;
+            border-top: 3px solid #ffcc00;
+            padding: 3.5rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.8rem;
+        }
+        .footer-logo {
+            height: 70px;
+            margin-bottom: 0.5rem;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7));
+        }
+        .footer-brand p {
+            color: #aaa;
+            font-size: 0.95rem;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+        .footer-social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+        .footer-social-links a {
+            color: #fff3d4;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        .footer-social-links a:hover {
+            color: #ffcc00;
+        }
+        .footer-copy {
+            color: #666;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding-top: 1.5rem;
+            width: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .nav-container {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 0.5rem 0;
+            }
+            .nav-links {
+                gap: 1.2rem;
+                font-size: 0.95rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .nav-social {
+                gap: 0.6rem;
+            }
+            .community-section {
+                padding: 3rem 1rem;
+            }
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <div class="noise-overlay"></div>
