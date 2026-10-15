@@ -517,152 +517,376 @@ body {
     box-shadow: 0 0 15px rgba(41, 138, 41, 0.7);
 }
 
-/* COMMUNITY SECTION */
-.community-section {
-    padding: 5rem 2rem;
-    max-width: 1300px;
-    margin: 0 auto;
-    text-align: center;
+/* SMOOTH SCROLL MARGINS (PREVENT FIXED NAV CLIPPING) */
+section[id], main[id] {
+    scroll-margin-top: 110px;
 }
+
+/* SOUND SYSTEM COMMUNITY SECTION */
+.community-section {
+    padding: 5rem 1.5rem 6rem 1.5rem;
+    max-width: 1440px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.community-header-wrap {
+    text-align: center;
+    max-width: 850px;
+    margin: 0 auto 3.5rem auto;
+}
+
+.sound-system-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 204, 0, 0.08);
+    border: 1px solid rgba(255, 204, 0, 0.35);
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: #ffcc00;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+    box-shadow: 0 0 15px rgba(255, 204, 0, 0.15);
+}
+
+.sound-system-pill .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #298a29;
+    box-shadow: 0 0 10px #298a29;
+    animation: pulse-ring 2s infinite;
+}
+
+@keyframes pulse-ring {
+    0% { transform: scale(0.9); opacity: 0.7; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.7; }
+}
+
+.community-main-title {
+    font-family: 'Rye', serif;
+    font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+    color: #ffcc00;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 20px rgba(255, 204, 0, 0.35);
+    letter-spacing: 2px;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+}
+
+.jamaica-accent-bar {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    margin: 0 auto 1.2rem auto;
+    width: 140px;
+    height: 4px;
+    border-radius: 2px;
+    overflow: hidden;
+}
+.jamaica-accent-bar span { flex: 1; height: 100%; }
+.bar-green { background: #009B3A; }
+.bar-gold { background: #FED100; }
+.bar-red { background: #E03C31; }
 
 .community-subtitle {
-    color: var(--color-orange);
-    font-size: 1.2rem;
-    font-family: var(--font-body);
+    color: #d98a3c;
+    font-size: 1.05rem;
+    font-family: 'Oswald', sans-serif;
     letter-spacing: 1.5px;
-    margin-top: -1rem;
-    margin-bottom: 3.5rem;
     text-transform: uppercase;
+    line-height: 1.5;
+    margin: 0;
 }
 
+/* 5-COLUMN GRID */
 .community-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.2rem;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1.5rem;
+    align-items: stretch;
 }
 
-@media (min-width: 1100px) {
+@media (min-width: 1200px) {
     .community-grid {
         grid-template-columns: repeat(5, 1fr);
     }
 }
 
+/* BASE CARD STYLING */
 .community-card {
-    background: linear-gradient(145deg, #1f110a 0%, #120703 100%);
-    border: 2px solid rgba(255, 204, 0, 0.2);
-    border-radius: 14px;
-    padding: 2.2rem 1.5rem;
-    text-decoration: none;
-    color: var(--color-parchment);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
     position: relative;
-    overflow: hidden;
-    transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    background: linear-gradient(180deg, rgba(32, 16, 10, 0.9) 0%, rgba(14, 6, 3, 0.95) 100%) !important;
+    border: 1px solid rgba(255, 204, 0, 0.22) !important;
+    border-radius: 16px !important;
+    padding: 2.2rem 1.4rem 1.8rem 1.4rem !important;
+    text-decoration: none !important;
+    color: #fff3d4 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    overflow: hidden !important;
+    backdrop-filter: blur(14px) !important;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+    transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+    cursor: pointer;
 }
 
 .community-card:hover {
-    transform: translateY(-8px);
-    border-color: var(--color-gold);
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 204, 0, 0.3);
+    transform: translateY(-9px);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 204, 0, 0.3) !important;
+    border-color: rgba(255, 204, 0, 0.7) !important;
 }
 
-.community-card .card-icon {
-    width: 60px;
-    height: 60px;
+/* VINYL RECORD ICON */
+.vinyl-disc {
+    width: 72px;
+    height: 72px;
     border-radius: 50%;
-    background: rgba(255, 204, 0, 0.1);
-    border: 1px solid var(--color-gold);
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--color-gold);
-    margin-bottom: 1.2rem;
-    transition: transform 0.3s;
+    margin-bottom: 1.3rem;
+    background: radial-gradient(circle, #1a1a1a 0%, #0d0d0d 60%, #050505 100%);
+    box-shadow: 0 6px 18px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,255,255,0.06);
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
 }
 
-.community-card:hover .card-icon {
-    transform: scale(1.15) rotate(5deg);
-    background: var(--color-gold);
-    color: #000;
+.vinyl-disc::before {
+    content: '';
+    position: absolute;
+    top: 4px; left: 4px; right: 4px; bottom: 4px;
+    border-radius: 50%;
+    border: 1px dashed rgba(255, 255, 255, 0.12);
+    pointer-events: none;
 }
 
-.community-card.group-card {
-    border-color: rgba(41, 138, 41, 0.5);
-    background: linear-gradient(145deg, #142014 0%, #0c140c 100%);
+.community-card:hover .vinyl-disc {
+    transform: scale(1.12) rotate(45deg);
 }
 
-.community-card.group-card:hover {
-    border-color: #85e085;
-    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(41, 138, 41, 0.5);
-}
-
-.community-card .card-badge {
+/* CARD BADGE */
+.card-badge {
     position: absolute;
     top: 12px;
     right: 12px;
-    background: var(--color-green);
-    color: #fff;
     font-size: 0.65rem;
     font-weight: 800;
     padding: 3px 8px;
-    border-radius: 4px;
+    border-radius: 6px;
     letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
+/* TYPOGRAPHY */
 .community-card h3 {
-    font-family: var(--font-logo);
-    font-size: 1.25rem;
-    color: var(--color-gold);
-    margin-bottom: 0.3rem;
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: #fff3d4 !important;
+    margin: 0 0 0.25rem 0 !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase;
 }
 
 .community-card .handle {
-    font-size: 0.85rem;
-    color: var(--color-orange);
-    font-weight: 700;
-    letter-spacing: 1px;
-    margin-bottom: 0.8rem;
+    font-size: 0.82rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    margin-bottom: 0.9rem !important;
+    text-transform: uppercase;
 }
 
 .community-card .desc {
-    font-size: 0.9rem;
-    color: #ccc;
-    line-height: 1.5;
-    margin-bottom: 1.5rem;
-    flex-grow: 1;
+    font-size: 0.88rem !important;
+    color: #bfaea5 !important;
+    line-height: 1.55 !important;
+    margin-bottom: 1.6rem !important;
+    flex-grow: 1 !important;
+    font-weight: 300;
 }
 
+/* BUTTON */
 .community-btn {
-    display: inline-block;
-    padding: 0.6rem 1.4rem;
-    background: rgba(255, 204, 0, 0.15);
-    border: 1px solid var(--color-gold);
-    color: var(--color-gold);
-    border-radius: 6px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
     font-weight: 700;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-    transition: all 0.3s;
+    font-size: 0.85rem;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
 }
 
-.community-card:hover .community-btn {
-    background: var(--color-gold);
-    color: #000;
+.community-btn .btn-arrow {
+    transition: transform 0.2s ease;
 }
 
-.community-btn.vip-btn {
-    background: rgba(41, 138, 41, 0.2);
-    border-color: var(--color-green);
-    color: #85e085;
+.community-card:hover .community-btn .btn-arrow {
+    transform: translate(3px, -3px);
 }
 
-.community-card:hover .community-btn.vip-btn {
-    background: var(--color-green);
+/* 1. FACEBOOK OFFICIAL */
+.facebook-card {
+    border-color: rgba(24, 119, 242, 0.35) !important;
+}
+.facebook-card .vinyl-disc {
+    border: 2px solid #1877F2;
+    color: #1877F2;
+}
+.facebook-card .card-badge {
+    background: rgba(24, 119, 242, 0.2);
+    color: #4da3ff;
+    border: 1px solid rgba(24, 119, 242, 0.4);
+}
+.facebook-card .handle { color: #4da3ff !important; }
+.facebook-card .community-btn {
+    background: rgba(24, 119, 242, 0.15);
+    border: 1px solid #1877F2;
+    color: #fff !important;
+}
+.facebook-card:hover {
+    border-color: #1877F2 !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(24, 119, 242, 0.4) !important;
+}
+.facebook-card:hover .community-btn {
+    background: #1877F2;
+    box-shadow: 0 0 15px rgba(24, 119, 242, 0.6);
+}
+
+/* 2. FACEBOOK VIP GROUP (PREMIUM HIGHLIGHT) */
+.vip-group-card {
+    border: 2px solid #FED100 !important;
+    background: linear-gradient(180deg, rgba(22, 42, 22, 0.95) 0%, rgba(10, 22, 10, 0.98) 100%) !important;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 155, 58, 0.35) !important;
+}
+.vip-group-card .vinyl-disc {
+    border: 2px solid #FED100;
+    color: #FED100;
+    background: radial-gradient(circle, #1a381a 0%, #0c200c 100%);
+}
+.vip-group-card .card-badge {
+    background: #009B3A;
     color: #fff;
+    border: 1px solid #FED100;
+    box-shadow: 0 0 10px rgba(0, 155, 58, 0.6);
+}
+.vip-group-card h3 { color: #FED100 !important; }
+.vip-group-card .handle { color: #85e085 !important; }
+.vip-group-card .community-btn {
+    background: #009B3A;
+    border: 1px solid #FED100;
+    color: #fff !important;
+    font-weight: 800;
+    box-shadow: 0 4px 15px rgba(0, 155, 58, 0.4);
+}
+.vip-group-card:hover {
+    border-color: #FED100 !important;
+    box-shadow: 0 28px 55px rgba(0,0,0,0.95), 0 0 35px rgba(254, 209, 0, 0.45) !important;
+}
+.vip-group-card:hover .community-btn {
+    background: #FED100;
+    color: #000 !important;
+    border-color: #FED100;
+    box-shadow: 0 0 20px rgba(254, 209, 0, 0.8);
+}
+
+/* 3. YOUTUBE CHANNEL */
+.youtube-card {
+    border-color: rgba(255, 0, 0, 0.35) !important;
+}
+.youtube-card .vinyl-disc {
+    border: 2px solid #FF0000;
+    color: #FF0000;
+}
+.youtube-card .card-badge {
+    background: rgba(255, 0, 0, 0.2);
+    color: #ff6666;
+    border: 1px solid rgba(255, 0, 0, 0.4);
+}
+.youtube-card .handle { color: #ff6666 !important; }
+.youtube-card .community-btn {
+    background: rgba(255, 0, 0, 0.15);
+    border: 1px solid #FF0000;
+    color: #fff !important;
+}
+.youtube-card:hover {
+    border-color: #FF0000 !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(255, 0, 0, 0.4) !important;
+}
+.youtube-card:hover .community-btn {
+    background: #FF0000;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+}
+
+/* 4. INSTAGRAM */
+.instagram-card {
+    border-color: rgba(225, 48, 108, 0.35) !important;
+}
+.instagram-card .vinyl-disc {
+    border: 2px solid #E1306C;
+    color: #E1306C;
+}
+.instagram-card .card-badge {
+    background: rgba(225, 48, 108, 0.2);
+    color: #ff80a5;
+    border: 1px solid rgba(225, 48, 108, 0.4);
+}
+.instagram-card .handle { color: #ff80a5 !important; }
+.instagram-card .community-btn {
+    background: rgba(225, 48, 108, 0.15);
+    border: 1px solid #E1306C;
+    color: #fff !important;
+}
+.instagram-card:hover {
+    border-color: #E1306C !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(225, 48, 108, 0.4) !important;
+}
+.instagram-card:hover .community-btn {
+    background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(225, 48, 108, 0.7);
+}
+
+/* 5. TIKTOK */
+.tiktok-card {
+    border-color: rgba(0, 242, 254, 0.35) !important;
+}
+.tiktok-card .vinyl-disc {
+    border: 2px solid #00F2FE;
+    color: #00F2FE;
+}
+.tiktok-card .card-badge {
+    background: rgba(0, 242, 254, 0.15);
+    color: #00F2FE;
+    border: 1px solid rgba(0, 242, 254, 0.4);
+}
+.tiktok-card .handle { color: #00F2FE !important; }
+.tiktok-card .community-btn {
+    background: rgba(0, 242, 254, 0.12);
+    border: 1px solid #00F2FE;
+    color: #fff !important;
+}
+.tiktok-card:hover {
+    border-color: #00F2FE !important;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 25px rgba(0, 242, 254, 0.4), 0 0 45px rgba(254, 44, 85, 0.25) !important;
+}
+.tiktok-card:hover .community-btn {
+    background: linear-gradient(45deg, #00F2FE, #FE2C55);
+    border-color: transparent;
+    color: #000 !important;
+    font-weight: 800;
+    box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
 }
 
 /* ENRICHED FOOTER */
