@@ -5,7 +5,7 @@
     const grid = document.getElementById('newsroom-grid');
     if (!grid) return;
 
-    const TYPE_LABELS = { on_this_day: 'ON THIS DAY', coming_up: 'COMING UP', news: 'REGGAE NEWS', radio: 'ON THE RADIO' };
+    const TYPE_LABELS = { on_this_day: 'ON THIS DAY', coming_up: 'COMING UP', news: 'REGGAE NEWS', radio: 'ON THE RADIO', fan_question: 'FAN QUESTION' };
 
     function esc(s) {
         return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
