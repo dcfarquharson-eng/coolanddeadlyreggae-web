@@ -974,3 +974,44 @@ section[id], main[id] {
         grid-template-columns: 1fr;
     }
 }
+
+/* ===== NEWSROOM (added 2026-10-20) ===== */
+.newsroom-section { margin-bottom: 5rem; padding: 0 1.5rem; }
+.newsroom-sub {
+    text-align: center; font-family: var(--font-manifesto); color: var(--color-paper);
+    font-size: 1.15rem; margin: -1rem auto 2.5rem; max-width: 760px; opacity: 0.9;
+}
+.newsroom-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.75rem; max-width: 1100px; margin: 0 auto;
+}
+.news-card {
+    position: relative; padding: 1.75rem 1.75rem 1.5rem;
+    background: linear-gradient(160deg, rgba(31,17,10,0.92), rgba(10,5,0,0.85));
+    border: 2px solid rgba(212,160,76,0.35); border-radius: 10px;
+    box-shadow: 0 12px 32px rgba(0,0,0,0.55);
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+.news-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+    background: linear-gradient(90deg, var(--color-green) 0 33%, var(--color-gold) 33% 66%, var(--color-red) 66% 100%);
+}
+.news-card:hover {
+    transform: translateY(-6px); border-color: var(--color-gold);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.65), 0 0 18px rgba(255,204,0,0.25);
+}
+.news-meta {
+    display: flex; justify-content: space-between; align-items: center; gap: 0.75rem;
+    font-size: 0.85rem; letter-spacing: 1.5px; color: var(--color-orange); margin-bottom: 0.9rem;
+}
+.news-tag {
+    background: rgba(255,204,0,0.12); border: 1px solid rgba(255,204,0,0.5); color: var(--color-gold);
+    padding: 0.2rem 0.6rem; border-radius: 999px; font-weight: 700;
+}
+.news-title { font-family: var(--font-logo); color: var(--color-gold); font-size: 1.5rem; line-height: 1.25; margin-bottom: 0.75rem; letter-spacing: 1px; }
+.news-body { font-family: var(--font-manifesto); color: var(--color-parchment); font-size: 1.05rem; line-height: 1.65; }
+.news-source { display: inline-block; margin-top: 1rem; color: var(--color-orange); font-size: 0.9rem; text-decoration: none; border-bottom: 1px dashed rgba(217,138,60,0.6); }
+.news-source:hover { color: var(--color-gold); border-bottom-color: var(--color-gold); }
+.newsroom-empty { grid-column: 1 / -1; text-align: center; font-family: var(--font-manifesto); color: var(--color-paper); opacity: 0.8; padding: 2rem; }
+@media (max-width: 600px) { .news-title { font-size: 1.3rem; } .news-card { padding: 1.4rem; } }
