@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cool & Deadly Reggae | Premium Live Stream</title>
-    <link rel="stylesheet" href="style.css?v=20261020_1">
+    <link rel="stylesheet" href="style.css?v=20261122_1">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="script.js" defer></script>
+    <script src="script.js?v=20261122_1" defer></script>
     <script src="news.js" defer></script>
     <style>
         /* TOP NAVBAR SOCIAL LINKS */
@@ -551,7 +551,11 @@
             <div class="player-wrapper">
                 <div class="player-housing">
                     <div class="player-grill">
-                        <div class="now-playing-info left-panel">
+                        <div id="now-playing-info" class="now-playing-info left-panel">
+                            <div id="track-dj" class="track-dj" style="display: none;">
+                                <span class="dj-live-dot"></span>
+                                <span id="track-dj-name"></span>
+                            </div>
                             <h3 id="track-title" class="track-title">Loading...</h3>
                             <h4 id="track-artist" class="track-artist">Please wait</h4>
                         </div>

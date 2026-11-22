@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "djs": [
+    {
+      "id": "dj_digital",
+      "displayName": "Live DJ Digital",
+      "pattern": "live[\\s_-]*dj[\\s_-]*digital",
+      "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/dj-digital.jpg",
+      "webPath": "assets/djs/dj-digital.jpg",
+      "localAsset": "assets/djs/dj-digital.jpg"
+    },
+    {
+      "id": "dj_ilaw",
+      "displayName": "Live DJ ILaw",
+      "pattern": "live[\\s_-]*dj[\\s_-]*i[\\s_-]*law",
+      "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/dj-ilaw.jpg",
+      "webPath": "assets/djs/dj-ilaw.jpg",
+      "localAsset": "assets/djs/dj-ilaw.jpg"
+    },
+    {
+      "id": "father_copper",
+      "displayName": "Live Father Copper",
+      "pattern": "live[\\s_-]*father[\\s_-]*copper",
+      "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/father-copper.jpg",
+      "webPath": "assets/djs/father-copper.jpg",
+      "localAsset": "assets/djs/father-copper.jpg"
+    }
+  ]
+}
