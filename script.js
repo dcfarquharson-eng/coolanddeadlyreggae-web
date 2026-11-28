@@ -657,42 +657,68 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
 
-                // Update History List (up to 4 recently spun tracks)
+                // Update History List (up to 4 clean recently spun tracks)
                 if (historyGrid && Array.isArray(data.song_history) && data.song_history.length > 0) {
-                    historyGrid.innerHTML = '';
+                    const cleanHistory = [];
+                    const junkTitleRe = /^(\.(aac|mp3|ogg|wav|flac|m4a)|\d+|unknown|live\s*stream)$/i;
+                    const junkArtistRe = /^(\d+|\.(aac|mp3|ogg|wav))$/i;
 
-                    const count = Math.min(4, data.song_history.length);
-                    for (let i = 0; i < count; i++) {
-                        const item = data.song_history[i];
+                    for (const item of data.song_history) {
                         const s = (item && item.song) || {};
-                        const sTitle = s.title || 'Unknown Title';
-                        const sArtist = s.artist || 'Unknown Artist';
+                        let sTitle = String(s.title || '').trim();
+                        let sArtist = String(s.artist || '').trim();
 
-                        const row = document.createElement('div');
-                        row.className = 'history-item';
+                        // Clean any Live DJ prefix / broadcast minute stamp from history rows
+                        for (const dj of liveDjs) {
+                            if (!dj.pattern) continue;
+                            try {
+                                const rx = new RegExp(dj.pattern, 'i');
+                                if (rx.test(sArtist)) sArtist = cleanLiveField(sArtist, rx, dj.showName);
+                                if (rx.test(sTitle)) sTitle = cleanLiveField(sTitle, rx, dj.showName);
+                            } catch (e) {
+                                // ignore invalid regex
+                            }
+                        }
 
-                        const idx = document.createElement('span');
-                        idx.className = 'history-index';
-                        idx.textContent = String(i + 1).padStart(2, '0');
+                        if (!sTitle || junkTitleRe.test(sTitle)) continue;
+                        if (junkArtistRe.test(sArtist)) sArtist = 'Cool & Deadly Reggae';
 
-                        const info = document.createElement('div');
-                        info.className = 'history-info';
+                        cleanHistory.push({
+                            title: sTitle,
+                            artist: sArtist || 'Cool & Deadly Reggae'
+                        });
+                        if (cleanHistory.length >= 4) break;
+                    }
 
-                        const titleEl = document.createElement('div');
-                        titleEl.className = 'history-title-text';
-                        titleEl.textContent = sTitle;
-                        titleEl.title = sTitle;
+                    if (cleanHistory.length > 0) {
+                        historyGrid.innerHTML = '';
+                        cleanHistory.forEach((entry, i) => {
+                            const row = document.createElement('div');
+                            row.className = 'history-item';
 
-                        const artistEl = document.createElement('div');
-                        artistEl.className = 'history-artist';
-                        artistEl.textContent = sArtist;
-                        artistEl.title = sArtist;
+                            const idx = document.createElement('span');
+                            idx.className = 'history-index';
+                            idx.textContent = String(i + 1).padStart(2, '0');
 
-                        info.appendChild(titleEl);
-                        info.appendChild(artistEl);
-                        row.appendChild(idx);
-                        row.appendChild(info);
-                        historyGrid.appendChild(row);
+                            const info = document.createElement('div');
+                            info.className = 'history-info';
+
+                            const titleEl = document.createElement('div');
+                            titleEl.className = 'history-title-text';
+                            titleEl.textContent = entry.title;
+                            titleEl.title = entry.title;
+
+                            const artistEl = document.createElement('div');
+                            artistEl.className = 'history-artist';
+                            artistEl.textContent = entry.artist;
+                            artistEl.title = entry.artist;
+
+                            info.appendChild(titleEl);
+                            info.appendChild(artistEl);
+                            row.appendChild(idx);
+                            row.appendChild(info);
+                            historyGrid.appendChild(row);
+                        });
                     }
                 }
             }

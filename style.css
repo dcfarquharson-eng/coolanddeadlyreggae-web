@@ -181,8 +181,9 @@ section[id], main[id] {
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--ink-soft);
-    padding: 0.5rem 0.85rem;
+    padding: 0.5rem 0.78rem;
     border-radius: 999px;
+    white-space: nowrap;
     transition: color 0.2s, background 0.2s;
 }
 
@@ -857,6 +858,21 @@ section[id], main[id] {
     gap: 1.5rem;
 }
 
+.today-pair-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.4rem;
+}
+
+.today-pair-grid .news-card {
+    border-color: var(--border-strong);
+    background: linear-gradient(155deg, rgba(17, 38, 26, 0.94), rgba(9, 20, 14, 0.98));
+}
+
+.today-pair-grid .news-card-media {
+    aspect-ratio: 16 / 9;
+}
+
 .news-lead-card {
     display: grid;
     grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
@@ -1103,10 +1119,13 @@ section[id], main[id] {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.5rem;
+    align-items: stretch;
 }
 
 .selector-card {
     position: relative;
+    display: flex;
+    flex-direction: column;
     background: var(--bg-card);
     border: 1px solid var(--border-subtle);
     border-radius: var(--radius-lg);
@@ -1136,6 +1155,10 @@ section[id], main[id] {
     height: 100%;
     object-fit: cover;
     object-position: center 15%;
+}
+
+.selector-card[data-dj-id="father_copper"] .selector-photo-wrap img {
+    object-position: center 28%;
 }
 
 .selector-live-badge {
@@ -1688,6 +1711,7 @@ section[id], main[id] {
    ========================================================================== */
 @media (max-width: 1120px) {
     .hero-grid { grid-template-columns: 1fr; }
+    .nav-links a { font-size: 0.78rem; padding: 0.45rem 0.58rem; }
     .news-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .yt-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .social-strip { grid-template-columns: repeat(3, minmax(0, 1fr)); }
@@ -1717,6 +1741,7 @@ section[id], main[id] {
 
     .news-lead-card { grid-template-columns: 1fr; }
     .news-lead-media { min-height: 230px; }
+    .today-pair-grid { grid-template-columns: 1fr; }
     .selectors-grid { grid-template-columns: 1fr; }
     .chat-layout { grid-template-columns: 1fr; }
     .heritage-band { grid-template-columns: 1fr; padding: 2rem 1.5rem; }

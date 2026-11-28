@@ -232,11 +232,17 @@
                         ? `${formatShortDate(spotDateKey)} • ${spotlightItems.length} ${spotlightItems.length === 1 ? 'Story' : 'Stories'}`
                         : `Latest Dispatch • ${formatShortDate(spotDateKey)}`;
                 }
-                const leadHtml = renderLeadCard(spotlightItems[0]);
-                const extraTodayHtml = spotlightItems.length > 1
-                    ? `<div class="news-grid" style="margin-top: 1.4rem;">${spotlightItems.slice(1).map((it) => renderGridCard(it, it.date_key === todayKey)).join('')}</div>`
-                    : '';
-                todayGrid.innerHTML = leadHtml + extraTodayHtml;
+                if (spotlightItems.length === 2) {
+                    todayGrid.innerHTML = `<div class="today-pair-grid">${spotlightItems.map((it) => renderGridCard(it, it.date_key === todayKey)).join('')}</div>`;
+                } else {
+                    const leadHtml = renderLeadCard(spotlightItems[0]);
+                    const extraItems = spotlightItems.slice(1);
+                    const extraClass = extraItems.length === 2 ? 'today-pair-grid' : 'news-grid';
+                    const extraTodayHtml = extraItems.length > 0
+                        ? `<div class="${extraClass}" style="margin-top: 1.4rem;">${extraItems.map((it) => renderGridCard(it, it.date_key === todayKey)).join('')}</div>`
+                        : '';
+                    todayGrid.innerHTML = leadHtml + extraTodayHtml;
+                }
             }
 
             if (archiveWrap) {
