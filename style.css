@@ -1739,12 +1739,14 @@ section[id], main[id] {
 /* ==========================================================================
    RESPONSIVE BREAKPOINTS
    ========================================================================== */
-@media (max-width: 1320px) {
-    .brand-title { font-size: 1.12rem; }
-    .brand-sub { font-size: 0.74rem; }
-    .nav-links { gap: 0.2rem; }
-    .nav-links a { font-size: 0.92rem; padding: 0.48rem 0.68rem; }
-    .nav-mini-play { font-size: 0.84rem; padding: 0.5rem 0.95rem; }
+@media (max-width: 1560px) {
+    .nav-inner { gap: 1rem; }
+    .brand-title { font-size: 1.15rem; }
+    .brand-sub { font-size: 0.75rem; }
+    .nav-links { gap: 0.25rem; }
+    .nav-links a { font-size: 0.94rem; padding: 0.48rem 0.7rem; }
+    .nav-mini-play { font-size: 0.86rem; padding: 0.52rem 1rem; }
+    .nav-social-btn { width: 38px; height: 38px; }
 }
 
 @media (max-width: 1120px) {
