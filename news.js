@@ -234,6 +234,8 @@
                 }
                 if (spotlightItems.length === 2) {
                     todayGrid.innerHTML = `<div class="today-pair-grid">${spotlightItems.map((it) => renderGridCard(it, it.date_key === todayKey)).join('')}</div>`;
+                } else if (spotlightItems.length === 3) {
+                    todayGrid.innerHTML = `<div class="today-triple-grid">${spotlightItems.map((it) => renderGridCard(it, it.date_key === todayKey)).join('')}</div>`;
                 } else {
                     const leadHtml = renderLeadCard(spotlightItems[0]);
                     const extraItems = spotlightItems.slice(1);
