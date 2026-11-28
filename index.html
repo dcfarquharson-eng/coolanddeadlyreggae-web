@@ -3,718 +3,383 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cool & Deadly Reggae | Premium Live Stream</title>
-    <link rel="stylesheet" href="style.css?v=20261122_1">
+    <title>Cool &amp; Deadly Reggae FM | 24/7 Roots, Rocksteady, Lovers Rock &amp; Daily Reggae News</title>
+    <meta name="description" content="Cool &amp; Deadly Reggae FM — 24/7 authentic Jamaican roots, rocksteady, lovers rock &amp; 80s dancehall radio, live selectors, daily 7-day Reggae newsroom, YouTube vault, and live studio chat.">
+    <link rel="icon" type="image/png" href="Logo.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
-    <script src="script.js?v=20261122_1" defer></script>
-    <script src="news.js" defer></script>
-    <style>
-        /* TOP NAVBAR SOCIAL LINKS */
-        .nav-social {
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-        }
-        .nav-social-link {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: #fff3d4;
-            background: rgba(255, 204, 0, 0.12);
-            border: 1px solid rgba(255, 204, 0, 0.35);
-            padding: 0.45rem;
-            border-radius: 8px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .nav-social-link:hover {
-            color: #000;
-            background: #ffcc00;
-            border-color: #ffcc00;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.7);
-            transform: translateY(-2px);
-        }
-        .nav-social-link.group-badge {
-            gap: 4px;
-            padding: 0.35rem 0.65rem;
-            background: rgba(41, 138, 41, 0.25);
-            border: 1px solid #298a29;
-            color: #85e085;
-        }
-        .nav-social-link.group-badge span {
-            font-size: 0.75rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-        }
-        .nav-social-link.group-badge:hover {
-            background: #298a29;
-            color: #fff;
-            box-shadow: 0 0 15px rgba(41, 138, 41, 0.8);
-        }
-
-        /* SMOOTH SCROLL MARGINS (PREVENT FIXED NAV CLIPPING) */
-        section[id], main[id] {
-            scroll-margin-top: 110px;
-        }
-
-        /* SOUND SYSTEM COMMUNITY SECTION */
-        .community-section {
-            padding: 5rem 1.5rem 6rem 1.5rem;
-            max-width: 1440px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .community-header-wrap {
-            text-align: center;
-            max-width: 850px;
-            margin: 0 auto 3.5rem auto;
-        }
-
-        .sound-system-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 204, 0, 0.08);
-            border: 1px solid rgba(255, 204, 0, 0.35);
-            padding: 6px 16px;
-            border-radius: 50px;
-            font-size: 0.78rem;
-            letter-spacing: 2px;
-            font-weight: 700;
-            color: #ffcc00;
-            text-transform: uppercase;
-            margin-bottom: 1.2rem;
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.15);
-        }
-
-        .sound-system-pill .pulse-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: #298a29;
-            box-shadow: 0 0 10px #298a29;
-            animation: pulse-ring 2s infinite;
-        }
-
-        @keyframes pulse-ring {
-            0% { transform: scale(0.9); opacity: 0.7; }
-            50% { transform: scale(1.3); opacity: 1; }
-            100% { transform: scale(0.9); opacity: 0.7; }
-        }
-
-        .community-main-title {
-            font-family: 'Rye', serif;
-            font-size: clamp(1.8rem, 3.5vw, 2.7rem);
-            color: #ffcc00;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.9), 0 0 20px rgba(255, 204, 0, 0.35);
-            letter-spacing: 2px;
-            margin: 0 0 1rem 0;
-            line-height: 1.2;
-        }
-
-        .jamaica-accent-bar {
-            display: flex;
-            justify-content: center;
-            gap: 4px;
-            margin: 0 auto 1.2rem auto;
-            width: 140px;
-            height: 4px;
-            border-radius: 2px;
-            overflow: hidden;
-        }
-        .jamaica-accent-bar span { flex: 1; height: 100%; }
-        .bar-green { background: #009B3A; }
-        .bar-gold { background: #FED100; }
-        .bar-red { background: #E03C31; }
-
-        .community-subtitle {
-            color: #d98a3c;
-            font-size: 1.05rem;
-            font-family: 'Oswald', sans-serif;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            line-height: 1.5;
-            margin: 0;
-        }
-
-        /* 5-COLUMN GRID */
-        .community-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 1.5rem;
-            align-items: stretch;
-        }
-
-        @media (min-width: 1200px) {
-            .community-grid {
-                grid-template-columns: repeat(5, 1fr);
-            }
-        }
-
-        /* BASE CARD STYLING */
-        .community-card {
-            position: relative;
-            background: linear-gradient(180deg, rgba(32, 16, 10, 0.9) 0%, rgba(14, 6, 3, 0.95) 100%) !important;
-            border: 1px solid rgba(255, 204, 0, 0.22) !important;
-            border-radius: 16px !important;
-            padding: 2.2rem 1.4rem 1.8rem 1.4rem !important;
-            text-decoration: none !important;
-            color: #fff3d4 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            text-align: center !important;
-            overflow: hidden !important;
-            backdrop-filter: blur(14px) !important;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
-            transition: all 0.35s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
-            cursor: pointer;
-        }
-
-        .community-card:hover {
-            transform: translateY(-9px);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 30px rgba(255, 204, 0, 0.3) !important;
-            border-color: rgba(255, 204, 0, 0.7) !important;
-        }
-
-        /* VINYL RECORD ICON */
-        .vinyl-disc {
-            width: 72px;
-            height: 72px;
-            border-radius: 50%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.3rem;
-            background: radial-gradient(circle, #1a1a1a 0%, #0d0d0d 60%, #050505 100%);
-            box-shadow: 0 6px 18px rgba(0,0,0,0.8), inset 0 0 0 2px rgba(255,255,255,0.06);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
-        }
-
-        .vinyl-disc::before {
-            content: '';
-            position: absolute;
-            top: 4px; left: 4px; right: 4px; bottom: 4px;
-            border-radius: 50%;
-            border: 1px dashed rgba(255, 255, 255, 0.12);
-            pointer-events: none;
-        }
-
-        .community-card:hover .vinyl-disc {
-            transform: scale(1.12) rotate(45deg);
-        }
-
-        /* CARD BADGE */
-        .card-badge {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            font-size: 0.65rem;
-            font-weight: 800;
-            padding: 3px 8px;
-            border-radius: 6px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        /* TYPOGRAPHY */
-        .community-card h3 {
-            font-family: 'Oswald', sans-serif !important;
-            font-size: 1.25rem !important;
-            font-weight: 700 !important;
-            color: #fff3d4 !important;
-            margin: 0 0 0.25rem 0 !important;
-            letter-spacing: 1px !important;
-            text-transform: uppercase;
-        }
-
-        .community-card .handle {
-            font-size: 0.82rem !important;
-            font-weight: 700 !important;
-            letter-spacing: 1px !important;
-            margin-bottom: 0.9rem !important;
-            text-transform: uppercase;
-        }
-
-        .community-card .desc {
-            font-size: 0.88rem !important;
-            color: #bfaea5 !important;
-            line-height: 1.55 !important;
-            margin-bottom: 1.6rem !important;
-            flex-grow: 1 !important;
-            font-weight: 300;
-        }
-
-        /* BUTTON */
-        .community-btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            width: 100%;
-            padding: 0.65rem 1rem;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            letter-spacing: 1.2px;
-            text-transform: uppercase;
-            transition: all 0.3s ease;
-        }
-
-        .community-btn .btn-arrow {
-            transition: transform 0.2s ease;
-        }
-
-        .community-card:hover .community-btn .btn-arrow {
-            transform: translate(3px, -3px);
-        }
-
-        /* 1. FACEBOOK OFFICIAL */
-        .facebook-card {
-            border-color: rgba(24, 119, 242, 0.35) !important;
-        }
-        .facebook-card .vinyl-disc {
-            border: 2px solid #1877F2;
-            color: #1877F2;
-        }
-        .facebook-card .card-badge {
-            background: rgba(24, 119, 242, 0.2);
-            color: #4da3ff;
-            border: 1px solid rgba(24, 119, 242, 0.4);
-        }
-        .facebook-card .handle { color: #4da3ff !important; }
-        .facebook-card .community-btn {
-            background: rgba(24, 119, 242, 0.15);
-            border: 1px solid #1877F2;
-            color: #fff !important;
-        }
-        .facebook-card:hover {
-            border-color: #1877F2 !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(24, 119, 242, 0.4) !important;
-        }
-        .facebook-card:hover .community-btn {
-            background: #1877F2;
-            box-shadow: 0 0 15px rgba(24, 119, 242, 0.6);
-        }
-
-        /* 2. FACEBOOK VIP GROUP (PREMIUM HIGHLIGHT) */
-        .vip-group-card {
-            border: 2px solid #FED100 !important;
-            background: linear-gradient(180deg, rgba(22, 42, 22, 0.95) 0%, rgba(10, 22, 10, 0.98) 100%) !important;
-            box-shadow: 0 20px 45px rgba(0,0,0,0.9), 0 0 25px rgba(0, 155, 58, 0.35) !important;
-        }
-        .vip-group-card .vinyl-disc {
-            border: 2px solid #FED100;
-            color: #FED100;
-            background: radial-gradient(circle, #1a381a 0%, #0c200c 100%);
-        }
-        .vip-group-card .card-badge {
-            background: #009B3A;
-            color: #fff;
-            border: 1px solid #FED100;
-            box-shadow: 0 0 10px rgba(0, 155, 58, 0.6);
-        }
-        .vip-group-card h3 { color: #FED100 !important; }
-        .vip-group-card .handle { color: #85e085 !important; }
-        .vip-group-card .community-btn {
-            background: #009B3A;
-            border: 1px solid #FED100;
-            color: #fff !important;
-            font-weight: 800;
-            box-shadow: 0 4px 15px rgba(0, 155, 58, 0.4);
-        }
-        .vip-group-card:hover {
-            border-color: #FED100 !important;
-            box-shadow: 0 28px 55px rgba(0,0,0,0.95), 0 0 35px rgba(254, 209, 0, 0.45) !important;
-        }
-        .vip-group-card:hover .community-btn {
-            background: #FED100;
-            color: #000 !important;
-            border-color: #FED100;
-            box-shadow: 0 0 20px rgba(254, 209, 0, 0.8);
-        }
-
-        /* 3. YOUTUBE CHANNEL */
-        .youtube-card {
-            border-color: rgba(255, 0, 0, 0.35) !important;
-        }
-        .youtube-card .vinyl-disc {
-            border: 2px solid #FF0000;
-            color: #FF0000;
-        }
-        .youtube-card .card-badge {
-            background: rgba(255, 0, 0, 0.2);
-            color: #ff6666;
-            border: 1px solid rgba(255, 0, 0, 0.4);
-        }
-        .youtube-card .handle { color: #ff6666 !important; }
-        .youtube-card .community-btn {
-            background: rgba(255, 0, 0, 0.15);
-            border: 1px solid #FF0000;
-            color: #fff !important;
-        }
-        .youtube-card:hover {
-            border-color: #FF0000 !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(255, 0, 0, 0.4) !important;
-        }
-        .youtube-card:hover .community-btn {
-            background: #FF0000;
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
-        }
-
-        /* 4. INSTAGRAM */
-        .instagram-card {
-            border-color: rgba(225, 48, 108, 0.35) !important;
-        }
-        .instagram-card .vinyl-disc {
-            border: 2px solid #E1306C;
-            color: #E1306C;
-        }
-        .instagram-card .card-badge {
-            background: rgba(225, 48, 108, 0.2);
-            color: #ff80a5;
-            border: 1px solid rgba(225, 48, 108, 0.4);
-        }
-        .instagram-card .handle { color: #ff80a5 !important; }
-        .instagram-card .community-btn {
-            background: rgba(225, 48, 108, 0.15);
-            border: 1px solid #E1306C;
-            color: #fff !important;
-        }
-        .instagram-card:hover {
-            border-color: #E1306C !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 30px rgba(225, 48, 108, 0.4) !important;
-        }
-        .instagram-card:hover .community-btn {
-            background: linear-gradient(45deg, #f09433, #dc2743, #bc1888);
-            border-color: transparent;
-            box-shadow: 0 0 20px rgba(225, 48, 108, 0.7);
-        }
-
-        /* 5. TIKTOK */
-        .tiktok-card {
-            border-color: rgba(0, 242, 254, 0.35) !important;
-        }
-        .tiktok-card .vinyl-disc {
-            border: 2px solid #00F2FE;
-            color: #00F2FE;
-        }
-        .tiktok-card .card-badge {
-            background: rgba(0, 242, 254, 0.15);
-            color: #00F2FE;
-            border: 1px solid rgba(0, 242, 254, 0.4);
-        }
-        .tiktok-card .handle { color: #00F2FE !important; }
-        .tiktok-card .community-btn {
-            background: rgba(0, 242, 254, 0.12);
-            border: 1px solid #00F2FE;
-            color: #fff !important;
-        }
-        .tiktok-card:hover {
-            border-color: #00F2FE !important;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.95), 0 0 25px rgba(0, 242, 254, 0.4), 0 0 45px rgba(254, 44, 85, 0.25) !important;
-        }
-        .tiktok-card:hover .community-btn {
-            background: linear-gradient(45deg, #00F2FE, #FE2C55);
-            border-color: transparent;
-            color: #000 !important;
-            font-weight: 800;
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.6);
-        }
-
-        /* MAIN FOOTER */
-        .main-footer {
-            background: #080402;
-            border-top: 3px solid #ffcc00;
-            padding: 3.5rem 2rem 2rem 2rem;
-            text-align: center;
-        }
-        .footer-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1.8rem;
-        }
-        .footer-logo {
-            height: 70px;
-            margin-bottom: 0.5rem;
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.7));
-        }
-        .footer-brand p {
-            color: #aaa;
-            font-size: 0.95rem;
-            max-width: 600px;
-            line-height: 1.6;
-        }
-        .footer-social-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            justify-content: center;
-        }
-        .footer-social-links a {
-            color: #fff3d4;
-            text-decoration: none;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            transition: color 0.3s;
-        }
-        .footer-social-links a:hover {
-            color: #ffcc00;
-        }
-        .footer-copy {
-            color: #666;
-            font-size: 0.85rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            padding-top: 1.5rem;
-            width: 100%;
-        }
-
-        @media (max-width: 768px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 0.5rem 0;
-            }
-            .nav-links {
-                gap: 1.2rem;
-                font-size: 0.95rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .nav-social {
-                gap: 0.6rem;
-            }
-            .community-section {
-                padding: 3rem 1rem;
-            }
-            .community-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Outfit:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css?v=20261128_redesign">
+    <script src="script.js?v=20261128_redesign" defer></script>
+    <script src="news.js?v=20261128_redesign" defer></script>
 </head>
 <body>
-    <div class="noise-overlay"></div>
+    <div class="tricolor-bar" aria-hidden="true"><span></span><span></span><span></span></div>
 
-    <nav class="top-nav">
-        <div class="nav-container">
-            <a href="#" class="brand">
-                <img src="Logo.png" alt="Cool and Deadly Reggae" class="nav-logo">
+    <!-- STICKY BROADCAST NAVBAR -->
+    <header class="site-nav">
+        <div class="nav-inner">
+            <a href="#listen" class="nav-brand">
+                <img src="assets/djs/station-logo.png" alt="Cool &amp; Deadly Reggae FM">
+                <span class="brand-wordmark">
+                    <span class="brand-title">Cool &amp; Deadly</span>
+                    <span class="brand-sub">Reggae FM • 24/7</span>
+                </span>
             </a>
-            <div class="nav-links">
-                <a href="#listen">LISTEN LIVE</a>
-                <a href="#manifesto">OUR VIBE</a>
-                <a href="#newsroom">NEWSROOM</a>
-                <a href="#dancehall">CHATROOM</a>
-                <a href="#community">COMMUNITY</a>
-            </div>
-            <div class="nav-social">
-                <a href="https://www.facebook.com/coolanddeadlyreggae" target="_blank" rel="noopener" title="Facebook Page" class="nav-social-link">
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+
+            <nav class="nav-links" id="nav-links" aria-label="Primary">
+                <a href="#listen">Live Studio</a>
+                <a href="#newsroom">7-Day News</a>
+                <a href="#selectors">Selectors</a>
+                <a href="#youtube">YouTube</a>
+                <a href="#dancehall">Chatroom</a>
+                <a href="#community">Apps &amp; Links</a>
+            </nav>
+
+            <div class="nav-actions">
+                <button type="button" id="nav-play-btn" class="nav-mini-play" aria-label="Play or pause live radio">
+                    <span class="live-pulse"></span>
+                    <span id="nav-play-label">Listen Live</span>
+                </button>
+                <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="nav-social-btn" title="YouTube" aria-label="YouTube">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2C0 8.1 0 12 0 12s0 3.9.5 5.8a3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1c.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>
                 </a>
-                <a href="https://www.facebook.com/groups/coolanddeadlyreggae/" target="_blank" rel="noopener" title="Facebook VIP Group" class="nav-social-link group-badge">
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                    <span>VIP</span>
+                <a href="https://www.instagram.com/coolanddeadlyreggae" target="_blank" rel="noopener" class="nav-social-btn" title="Instagram" aria-label="Instagram">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4.5"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
                 </a>
-                <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" title="YouTube Channel" class="nav-social-link">
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/></svg>
-                </a>
-                <a href="https://www.instagram.com/coolanddeadlyreggae" target="_blank" rel="noopener" title="Instagram" class="nav-social-link">
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                </a>
-                <a href="https://www.tiktok.com/@coolanddeadlyreggae" target="_blank" rel="noopener" title="TikTok" class="nav-social-link">
-                    <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
-                </a>
+                <button type="button" id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle Menu">&#9776;</button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- HEADER IMAGE (< 1/3 Screen) -->
-    <div class="hero-banner-section">
-        <img src="assets/media__1778368308623.jpg" alt="Cool and Deadly Vintage Reggae Sound System" class="hero-banner-img">
-    </div>
-
-    <!-- MAIN DASHBOARD (2/3 Screen, No Scrolling required) -->
-    <main class="main-content" id="listen">
-        <section class="radio-dashboard">
-            
-            <!-- LEFT: NOW PLAYING -->
-            <div class="player-wrapper">
-                <div class="player-housing">
-                    <div class="player-grill">
-                        <div id="now-playing-info" class="now-playing-info left-panel">
-                            <div id="track-dj" class="track-dj" style="display: none;">
-                                <span class="dj-live-dot"></span>
-                                <span id="track-dj-name"></span>
+    <main>
+        <!-- HERO: FLAGSHIP LIVE RADIO CONSOLE -->
+        <section class="hero-studio" id="listen">
+            <div class="container">
+                <div class="hero-grid">
+                    <!-- Main Broadcast Player -->
+                    <div class="studio-deck">
+                        <div class="studio-topbar">
+                            <div class="broadcast-pill">
+                                <span class="live-pulse" id="hero-live-dot"></span>
+                                <span><strong>ON AIR</strong> &middot; 320 KBPS HD STREAM</span>
                             </div>
-                            <h3 id="track-title" class="track-title">Loading...</h3>
-                            <h4 id="track-artist" class="track-artist">Please wait</h4>
+                            <div class="studio-app-badges">
+                                <a href="https://apps.apple.com/us/app/coolanddeadlyreggaeapp/id6756203735" target="_blank" rel="noopener" class="mini-store-link">App Store ↗</a>
+                                <a href="https://play.google.com/store/apps/details?id=com.coolanddeadlyreggae.app" target="_blank" rel="noopener" class="mini-store-link">Google Play ↗</a>
+                            </div>
                         </div>
 
-                        <div class="turntable-area">
-                            <img src="Logo.png" alt="Cool and Deadly Base" class="logo-base">
-                            <img id="album-art" src="coolanddeadlyreggae no album cover art found.png" alt="Currently Playing" class="record-sleeve">
-                            <div id="record-hole" class="record-hole"></div>
+                        <div class="studio-main">
+                            <div class="artwork-stage">
+                                <div class="artwork-inner">
+                                    <img id="album-art" src="assets/djs/station-logo.png" alt="Cool &amp; Deadly Reggae Now Playing" class="record-sleeve is-station-logo">
+                                    <div class="artwork-sheen"></div>
+                                </div>
+                            </div>
+
+                            <div class="studio-meta">
+                                <div class="studio-eyebrow" id="studio-eyebrow">Strictly Roots, Rocksteady &amp; Lovers Rock</div>
+                                <div id="now-playing-info" class="now-playing-info">
+                                    <div id="track-dj" class="track-dj" style="display: none;">
+                                        <span class="dj-live-dot"></span>
+                                        <span id="track-dj-name"></span>
+                                    </div>
+                                    <h1 id="track-title" class="track-title">Loading Live Stream...</h1>
+                                    <p id="track-artist" class="track-artist">Cool &amp; Deadly Reggae FM</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="minimal-controls right-panel">
-                            <button id="play-btn" class="simple-btn play-icon">▶</button>
+                        <div class="studio-controls">
+                            <button type="button" id="play-btn" class="play-btn-main" aria-label="Play or pause radio stream">▶</button>
+                            <div class="control-status">
+                                <span class="control-status-label" id="player-status-label">Click Play to Tune In</span>
+                                <span class="control-status-sub" id="player-status-sub">LIVE FROM KINGSTON VIBES • 24/7</span>
+                            </div>
+                            <div class="eq-bars" id="eq-bars" aria-hidden="true">
+                                <span></span><span></span><span></span><span></span>
+                            </div>
+                            <div class="volume-wrap">
+                                <button type="button" id="mute-btn" class="mute-btn" aria-label="Mute or unmute">
+                                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+                                </button>
+                                <input type="range" id="volume-slider" class="volume-slider" min="0" max="1" step="0.02" value="0.9" aria-label="Stream volume">
+                            </div>
+                            <audio id="audio-stream" src="https://a13.asurahosting.com/listen/coolanddeadlyreggae.com/radio.mp3" preload="none"></audio>
                         </div>
-                        
-                        <audio id="audio-stream" src="https://a13.asurahosting.com/listen/coolanddeadlyreggae.com/radio.mp3" preload="none" autoplay></audio>
                     </div>
-                </div>
-            </div>
 
-            <!-- RIGHT: RECENTLY PLAYED -->
-            <div class="history-wrapper">
-                <h2 class="history-title">RECENTLY SPUN</h2>
-                <div class="history-list" id="history-grid">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-
-        </section>
-
-        <!-- MANIFESTO SECTION (Below the fold) -->
-        <section class="manifesto-section" id="manifesto">
-            <h2 class="manifesto-heading">THE GOOD OLD REGGAE</h2>
-            <div class="manifesto-text">
-                <p>Are you seeking out rare obscure records to find the music you love—artists like Bob Marley, Dennis Brown, Beres Hammond, Ben Boothe, Alton Ellis and Delroy Wilson?</p>
-                <p>Are you looking for throwback rhythms that evoke memories both shared and unique?</p>
-                <p>Are you feeling frustrated with the current direction of reggae music and want back the good old reggae?</p>
-                <p>Most die-hard reggae fans are finding it more and more challenging to find some fresh, classic reggae sounds. Our radio jockeys had that experience and that is why we are designed specifically for those seeking that signature oldies culture, lovers rock sound and 80's dancehall. This website is bursting with reggae from decades of roots and dancehall. Giving you our listeners access to throwback rhythms that evoke memories both shared and unique. So if you are in search of some vintage tunes, look no further than coolanddeadlyreggae.com!</p>
-            </div>
-        </section>
-
-        <!-- NEWSROOM (items come from news.json; each appears at its publish_at time) -->
-        <section class="newsroom-section" id="newsroom" aria-labelledby="newsroom-heading">
-            <h2 class="manifesto-heading" id="newsroom-heading">THE NEWSROOM</h2>
-            <p class="newsroom-sub">Reggae history, birthdays and news, from the Cool &amp; Deadly selectors.</p>
-            <div class="newsroom-grid" id="newsroom-grid">
-                <p class="newsroom-empty">Loading the latest from the yard...</p>
-            </div>
-        </section>
-
-        <!-- DANCEHALL CHAT -->
-        <section class="chat-section" id="dancehall">
-            <h2 class="manifesto-heading">THE CHATROOM</h2>
-            <div class="chat-container">
-                <div class="chat-messages" id="chat-messages">
-                    <div class="message"><span class="user" style="color: #FCD116;">Selector:</span> Welcome to the dance! Loading vibes...</div>
-                </div>
-                <div class="chat-input-area">
-                    <input type="text" id="chat-input" placeholder="Type a message...">
-                    <button class="send-btn" id="chat-send-btn">SEND</button>
+                    <!-- Right Rail: Recently Spun -->
+                    <aside class="history-panel" aria-label="Recently Played Tracks">
+                        <div class="panel-header">
+                            <h2 class="panel-title">Recently Spun</h2>
+                            <span class="panel-tag">LIVE LOG</span>
+                        </div>
+                        <div class="history-list" id="history-grid">
+                            <div class="history-item">
+                                <span class="history-index">01</span>
+                                <div class="history-info">
+                                    <div class="history-title-text">Loading recent spins...</div>
+                                    <div class="history-artist">Connecting to studio</div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </section>
 
-        <!-- SOUND SYSTEM COMMUNITY -->
-        <section class="community-section" id="community">
-            <div class="community-header-wrap">
-                <div class="sound-system-pill">
-                    <span class="pulse-dot"></span> 24/7 Global Sound System Network
+        <!-- DAILY 7-DAY REGGAE NEWSROOM (TODAY ALWAYS PINNED AT TOP) -->
+        <section class="section-block" id="newsroom" aria-labelledby="newsroom-heading">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">Updated Daily • Rolling 7-Day Edition</div>
+                        <h2 class="section-title" id="newsroom-heading">Reggae &amp; Dancehall Newsroom</h2>
+                        <p class="section-sub">The exact daily breaking Reggae, Dancehall &amp; Jamaican culture reports from our Facebook, Instagram &amp; YouTube channels — today's stories always pinned on top.</p>
+                    </div>
+                    <div class="news-filters" id="news-day-filters" aria-label="Filter news by day"></div>
                 </div>
-                <h2 class="community-main-title">JOIN THE SOUND SYSTEM COMMUNITY</h2>
-                <div class="jamaica-accent-bar">
-                    <span class="bar-green"></span>
-                    <span class="bar-gold"></span>
-                    <span class="bar-red"></span>
+
+                <!-- Today's Pinned Spotlight -->
+                <div id="today-news-wrap" class="today-spotlight" style="display: none;">
+                    <div class="news-group-label">
+                        <span class="badge-today">TODAY</span>
+                        <span id="today-date-label">Latest Stories</span>
+                    </div>
+                    <div id="today-news-grid" class="today-lead-grid"></div>
                 </div>
-                <p class="community-subtitle">Connect with vintage vinyl collectors, sound clash heads, and roots selectors worldwide.</p>
+
+                <!-- Last 7 Days Grid -->
+                <div id="archive-news-wrap">
+                    <div class="news-group-label" id="archive-group-label">
+                        <span>Last 7 Days</span>
+                    </div>
+                    <div class="news-grid" id="newsroom-grid">
+                        <p class="newsroom-empty">Loading the latest 7 days of Reggae news...</p>
+                    </div>
+                </div>
             </div>
-            
-            <div class="community-grid">
-                <!-- 1. Facebook Official Page -->
-                <a href="https://www.facebook.com/coolanddeadlyreggae" target="_blank" rel="noopener" class="community-card facebook-card">
-                    <div class="card-badge">Official Page</div>
-                    <div class="vinyl-disc">
-                        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2" fill="none"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-                    </div>
-                    <h3>Facebook Official</h3>
-                    <p class="handle">@coolanddeadlyreggae</p>
-                    <p class="desc">Daily vintage riddims, vinyl label history, artist birthdays & live station announcements.</p>
-                    <span class="community-btn">Follow Page <span class="btn-arrow">↗</span></span>
-                </a>
+        </section>
 
-                <!-- 2. Facebook VIP Group (Highlight) -->
-                <a href="https://www.facebook.com/groups/coolanddeadlyreggae/" target="_blank" rel="noopener" class="community-card vip-group-card">
-                    <div class="card-badge">★ VIP Inner Circle ★</div>
-                    <div class="vinyl-disc">
-                        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2" fill="none"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <!-- RESIDENT SELECTORS -->
+        <section class="section-block" id="selectors" aria-labelledby="selectors-heading">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">On The Controls</div>
+                        <h2 class="section-title" id="selectors-heading">Resident Selectors</h2>
+                        <p class="section-sub">Authentic Jamaican selectors spinning vintage vinyl, roots classics, lovers rock, and golden-era dancehall live from the studio.</p>
                     </div>
-                    <h3>Facebook VIP Group</h3>
-                    <p class="handle">Cool & Deadly Community</p>
-                    <p class="desc">Exclusive selector vault, rare record identification, dubplate requests & vinyl trading.</p>
-                    <span class="community-btn">Join VIP Group <span class="btn-arrow">↗</span></span>
-                </a>
+                </div>
 
-                <!-- 3. YouTube Channel -->
-                <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="community-card youtube-card">
-                    <div class="card-badge">Studio Vault</div>
-                    <div class="vinyl-disc">
-                        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2" fill="none"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="currentColor"/></svg>
-                    </div>
-                    <h3>YouTube Channel</h3>
-                    <p class="handle">@coolanddeadlyreggae</p>
-                    <p class="desc">Sound clash tapes, vintage 45 RPM rips, studio sessions & full visual dub mixes.</p>
-                    <span class="community-btn">Subscribe <span class="btn-arrow">↗</span></span>
-                </a>
+                <div class="selectors-grid">
+                    <article class="selector-card" data-dj-id="dj_digital">
+                        <div class="selector-photo-wrap">
+                            <img src="assets/djs/dj-digital.jpg" alt="DJ Digital" loading="lazy">
+                            <span class="selector-live-badge"><span class="live-pulse is-red"></span> On Air Now</span>
+                        </div>
+                        <div class="selector-info">
+                            <div class="selector-schedule">Saturdays • 8:00 PM EST</div>
+                            <h3 class="selector-name">DJ Digital</h3>
+                            <p class="selector-show">Saturday Night Shakedown</p>
+                            <p class="selector-bio">Deep roots, rare 70s &amp; 80s 45s, sound system history, and timeless Jamaican grooves.</p>
+                        </div>
+                    </article>
 
-                <!-- 4. Instagram -->
-                <a href="https://www.instagram.com/coolanddeadlyreggae" target="_blank" rel="noopener" class="community-card instagram-card">
-                    <div class="card-badge">Visual Vault</div>
-                    <div class="vinyl-disc">
-                        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-                    </div>
-                    <h3>Instagram</h3>
-                    <p class="handle">@coolanddeadlyreggae</p>
-                    <p class="desc">Original sound system flyers, vintage vinyl sleeves, clash posters & selector reels.</p>
-                    <span class="community-btn">Follow on IG <span class="btn-arrow">↗</span></span>
-                </a>
+                    <article class="selector-card" data-dj-id="dj_ilaw">
+                        <div class="selector-photo-wrap">
+                            <img src="assets/djs/dj-ilaw.jpg" alt="DJ ILaw" loading="lazy">
+                            <span class="selector-live-badge"><span class="live-pulse is-red"></span> On Air Now</span>
+                        </div>
+                        <div class="selector-info">
+                            <div class="selector-schedule">Live Broadcast</div>
+                            <h3 class="selector-name">DJ ILaw</h3>
+                            <p class="selector-show">Roots Rock Reggae Vibration</p>
+                            <p class="selector-bio">Conscious roots rock, foundation dubplates, and classic yard vibes straight from the turntable.</p>
+                        </div>
+                    </article>
 
-                <!-- 5. TikTok -->
-                <a href="https://www.tiktok.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="community-card tiktok-card">
-                    <div class="card-badge">Riddim Drops</div>
-                    <div class="vinyl-disc">
-                        <svg viewBox="0 0 24 24" width="34" height="34" stroke="currentColor" stroke-width="2" fill="none"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+                    <article class="selector-card" data-dj-id="father_copper">
+                        <div class="selector-photo-wrap">
+                            <img src="assets/djs/father-copper.jpg" alt="Father Copper" loading="lazy">
+                            <span class="selector-live-badge"><span class="live-pulse is-red"></span> On Air Now</span>
+                        </div>
+                        <div class="selector-info">
+                            <div class="selector-schedule">Live Broadcast</div>
+                            <h3 class="selector-name">Father Copper</h3>
+                            <p class="selector-show">Father Copper Showcase</p>
+                            <p class="selector-bio">Heavyweight selectors' showcase blending classic rub-a-dub, lovers rock, and rare vintage cuts.</p>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- COOL & DEADLY YOUTUBE VAULT -->
+        <section class="section-block" id="youtube" aria-labelledby="youtube-heading">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">YouTube Channel • @coolanddeadlyreggae</div>
+                        <h2 class="section-title" id="youtube-heading">Reggae History &amp; Studio Vault</h2>
+                        <p class="section-sub">Mini-documentaries on Studio One, Black Ark, King Tubby, and Kingston sound system legends — plus daily Reggae News Shorts.</p>
                     </div>
-                    <h3>TikTok</h3>
-                    <p class="handle">@coolanddeadlyreggae</p>
-                    <p class="desc">15-second riddim trivia, needle-drop basslines, dub sirens & dancehall culture clips.</p>
-                    <span class="community-btn">Follow on TikTok <span class="btn-arrow">↗</span></span>
-                </a>
+                    <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="btn-gold">Subscribe on YouTube ↗</a>
+                </div>
+
+                <div class="yt-grid" id="youtube-vault-grid">
+                    <p class="newsroom-empty">Loading latest videos from @coolanddeadlyreggae...</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- LIVE STUDIO CHATROOM + OFFICIAL MOBILE APPS -->
+        <section class="section-block" id="dancehall" aria-labelledby="chat-heading">
+            <div class="container">
+                <div class="section-head">
+                    <div>
+                        <div class="section-kicker">Interactive Studio</div>
+                        <h2 class="section-title" id="chat-heading">Live Dancehall Chatroom</h2>
+                        <p class="section-sub">Drop a shout-out, request a riddim, or link up with reggae lovers listening around the globe right now.</p>
+                    </div>
+                </div>
+
+                <div class="chat-layout">
+                    <div class="chat-container">
+                        <div class="chat-topbar">
+                            <div class="chat-topbar-left">
+                                <span class="live-pulse"></span>
+                                <span>Studio Chat • Live Listeners</span>
+                            </div>
+                            <span class="chat-topbar-hint">Double-click input to change nickname</span>
+                        </div>
+                        <div class="chat-messages" id="chat-messages">
+                            <div class="message"><span class="user" style="color: #f2b705;">Selector:</span> Welcome to the yard! Connecting to live chat...</div>
+                        </div>
+                        <div class="chat-input-area">
+                            <input type="text" id="chat-input" placeholder="Drop a shout-out or request a tune...">
+                            <button type="button" class="send-btn" id="chat-send-btn">Send</button>
+                        </div>
+                    </div>
+
+                    <aside class="app-promo-card" id="community">
+                        <div>
+                            <img src="assets/djs/station-logo.png" alt="Cool &amp; Deadly Reggae Mobile App" class="app-promo-badge">
+                            <h3 style="margin-top: 1rem;">Take Cool &amp; Deadly Everywhere</h3>
+                            <p style="margin-top: 0.55rem;">Stream 320kbps HD reggae in your car with Android Auto &amp; CarPlay, save favorite tracks to My Crates, tune the built-in EQ, and chat live with our DJs.</p>
+                        </div>
+                        <div class="store-stack">
+                            <a href="https://apps.apple.com/us/app/coolanddeadlyreggaeapp/id6756203735" target="_blank" rel="noopener" class="store-cta">
+                                <span>Download for iPhone (App Store)</span>
+                                <span>↗</span>
+                            </a>
+                            <a href="https://play.google.com/store/apps/details?id=com.coolanddeadlyreggae.app" target="_blank" rel="noopener" class="store-cta">
+                                <span>Download for Android (Google Play)</span>
+                                <span>↗</span>
+                            </a>
+                            <a href="links/" class="store-cta">
+                                <span>All Official Links &amp; Bio Hub</span>
+                                <span>→</span>
+                            </a>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- HERITAGE EDITORIAL BAND & SOCIAL CHANNELS -->
+        <section class="section-block" id="manifesto" aria-labelledby="heritage-heading">
+            <div class="container">
+                <div class="heritage-band">
+                    <div>
+                        <div class="section-kicker">Our Mission</div>
+                        <h2 class="heritage-quote" id="heritage-heading">
+                            "Bringing back the <span>good old reggae</span> — timeless roots, rocksteady, lovers rock &amp; 80s dancehall."
+                        </h2>
+                    </div>
+                    <div class="heritage-copy">
+                        <p>Most die-hard reggae lovers find it harder every year to hear authentic, golden-era Jamaican music played with care. Cool &amp; Deadly Reggae was built by veteran selectors for listeners who still treasure the soul of Bob Marley, Dennis Brown, Beres Hammond, Alton Ellis, Gregory Isaacs, and Delroy Wilson.</p>
+                        <p>Whether you're tuning in for a live weekend sound system session or cruising through our 24/7 curated rotation, you're home at <strong>coolanddeadlyreggae.com</strong>.</p>
+                    </div>
+                </div>
+
+                <div class="social-strip">
+                    <a href="https://www.facebook.com/coolanddeadlyreggae" target="_blank" rel="noopener" class="social-tile">
+                        <span class="social-tile-top"><span>Facebook Page</span><span>↗</span></span>
+                        <span class="social-tile-handle">@coolanddeadlyreggae</span>
+                    </a>
+                    <a href="https://www.facebook.com/groups/coolanddeadlyreggae/" target="_blank" rel="noopener" class="social-tile">
+                        <span class="social-tile-top"><span>Facebook VIP Group</span><span>↗</span></span>
+                        <span class="social-tile-handle">Selector Community</span>
+                    </a>
+                    <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="social-tile">
+                        <span class="social-tile-top"><span>YouTube Channel</span><span>↗</span></span>
+                        <span class="social-tile-handle">@coolanddeadlyreggae</span>
+                    </a>
+                    <a href="https://www.instagram.com/coolanddeadlyreggae" target="_blank" rel="noopener" class="social-tile">
+                        <span class="social-tile-top"><span>Instagram</span><span>↗</span></span>
+                        <span class="social-tile-handle">@coolanddeadlyreggae</span>
+                    </a>
+                    <a href="https://www.tiktok.com/@coolanddeadlyreggae" target="_blank" rel="noopener" class="social-tile">
+                        <span class="social-tile-top"><span>TikTok</span><span>↗</span></span>
+                        <span class="social-tile-handle">@coolanddeadlyreggae</span>
+                    </a>
+                </div>
             </div>
         </section>
     </main>
 
-    <script type="module" src="chat.js"></script>
+    <!-- STORY & VIDEO LIGHTBOX MODAL -->
+    <div class="modal-backdrop" id="media-modal" role="dialog" aria-modal="true" aria-hidden="true">
+        <div class="modal-sheet">
+            <button type="button" class="modal-close" id="modal-close-btn" aria-label="Close modal">&times;</button>
+            <div id="modal-media-slot"></div>
+            <div class="modal-body" id="modal-body-slot"></div>
+        </div>
+    </div>
 
-    <footer class="main-footer">
-        <div class="footer-container">
-            <div class="footer-brand">
-                <img src="Logo.png" alt="Cool and Deadly Reggae" class="footer-logo">
-                <p>Strictly Roots, Rockers, Lovers Rock & 80s Dancehall. Broadcasting 24/7 around the globe.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div>
+                    <a href="#listen" class="nav-brand">
+                        <img src="assets/djs/station-logo.png" alt="Cool &amp; Deadly Reggae">
+                        <span class="brand-wordmark">
+                            <span class="brand-title">Cool &amp; Deadly</span>
+                            <span class="brand-sub">Strictly Roots &amp; Culture</span>
+                        </span>
+                    </a>
+                    <p class="footer-brand-desc">Authentic Jamaican roots, rocksteady, lovers rock &amp; 80s dancehall broadcasting 24/7 worldwide.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Explore</h4>
+                    <ul>
+                        <li><a href="#listen">Live Radio Studio</a></li>
+                        <li><a href="#newsroom">7-Day Reggae Newsroom</a></li>
+                        <li><a href="#selectors">Resident Selectors</a></li>
+                        <li><a href="#youtube">YouTube Vault</a></li>
+                        <li><a href="#dancehall">Live Chatroom</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Apps &amp; Legal</h4>
+                    <ul>
+                        <li><a href="https://apps.apple.com/us/app/coolanddeadlyreggaeapp/id6756203735" target="_blank" rel="noopener">iPhone &amp; iPad App</a></li>
+                        <li><a href="https://play.google.com/store/apps/details?id=com.coolanddeadlyreggae.app" target="_blank" rel="noopener">Android App</a></li>
+                        <li><a href="links/">Official Links Hub</a></li>
+                        <li><a href="terms.html">Terms of Service</a></li>
+                    </ul>
+                </div>
             </div>
-            <div class="footer-social-links">
-                <a href="https://www.facebook.com/coolanddeadlyreggae" target="_blank" rel="noopener" title="Facebook Page">Facebook Page</a>
-                <a href="https://www.facebook.com/groups/coolanddeadlyreggae/" target="_blank" rel="noopener" title="Facebook VIP Group">VIP Group</a>
-                <a href="https://www.youtube.com/@coolanddeadlyreggae" target="_blank" rel="noopener" title="YouTube">YouTube</a>
-                <a href="https://www.instagram.com/coolanddeadlyreggae" target="_blank" rel="noopener" title="Instagram">Instagram</a>
-                <a href="https://www.tiktok.com/@coolanddeadlyreggae" target="_blank" rel="noopener" title="TikTok">TikTok</a>
+            <div class="footer-bottom">
+                <span>&copy; 2026 Cool &amp; Deadly Reggae. All rights reserved.</span>
+                <span>Licensed Internet Radio • Broadcasting 24/7</span>
             </div>
-            <p class="footer-copy">&copy; 2026 Cool and Deadly Reggae. Strictly Roots & Culture. All rights reserved.</p>
         </div>
     </footer>
+
+    <script type="module" src="chat.js?v=20261128_redesign"></script>
 </body>
 </html>

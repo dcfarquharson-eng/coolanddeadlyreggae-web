@@ -86,6 +86,15 @@ chatInput.addEventListener('keypress', (e) => {
     }
 });
 
+function escapeHtml(str) {
+    return String(str ?? '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
 function listenForMessages() {
     const q = query(collection(db, "chat_messages"), orderBy("timestamp", "desc"), limit(50));
     
@@ -101,9 +110,9 @@ function listenForMessages() {
             
             const div = document.createElement('div');
             div.className = "message";
-            div.style.marginBottom = "1rem";
-            div.style.borderBottom = "1px dashed #333";
-            div.style.paddingBottom = "0.5rem";
+            div.style.marginBottom = "0.75rem";
+            div.style.borderBottom = "1px solid rgba(255, 255, 255, 0.07)";
+            div.style.paddingBottom = "0.6rem";
             
             let timeStr = "";
             if (data.timestamp) {
@@ -116,20 +125,24 @@ function listenForMessages() {
                 timeStr = ` • ${hours}:${minutes} ${ampm}`;
             }
 
+            const safeSender = escapeHtml(data.sender_name || 'Anonymous');
+            const safeText = escapeHtml(data.text || '');
+
             let userHtml = "";
             if (messageIsDJ) {
-                userHtml = `<span class="user" style="color: var(--color-gold); font-weight: bold;">🎤 ${data.sender_name || 'Anonymous'}</span>`;
+                userHtml = `<span class="user" style="color: var(--gold, #f2b705); font-weight: 700;">🎤 ${safeSender}</span>`;
             } else {
-                userHtml = `<span class="user" style="color: #aaa; font-weight: bold;">${isMe ? 'You' : (data.sender_name || 'Anonymous')}</span>`;
+                const nameColor = isMe ? 'var(--emerald-bright, #19c35c)' : 'var(--ink-soft, #c5d1c8)';
+                userHtml = `<span class="user" style="color: ${nameColor}; font-weight: 700;">${isMe ? 'You' : safeSender}</span>`;
             }
 
-            let timeHtml = `<span style="color: #666; font-size: 0.8rem; margin-left: 6px;">${timeStr}</span>`;
-            let textHtml = `<span style="color: #fff; margin-left: 8px;">: ${data.text || ''}</span>`;
+            let timeHtml = `<span style="color: var(--ink-muted, #849a8c); font-size: 0.76rem; margin-left: 6px;">${timeStr}</span>`;
+            let textHtml = `<span style="color: var(--ink, #f7f4ec); margin-left: 8px;">: ${safeText}</span>`;
 
             // DJ Delete Button
             let deleteBtnHtml = "";
             if (isDJ) {
-                deleteBtnHtml = `<span style="color: red; cursor: pointer; font-size: 0.8rem; float: right; margin-left: 10px;" data-id="${docId}" class="delete-msg-btn">Delete</span>`;
+                deleteBtnHtml = `<span style="color: #ff5c66; cursor: pointer; font-size: 0.78rem; float: right; margin-left: 10px; font-weight: 600;" data-id="${escapeHtml(docId)}" class="delete-msg-btn">Delete</span>`;
             }
 
             div.innerHTML = userHtml + timeHtml + textHtml + deleteBtnHtml;

@@ -202,6 +202,16 @@ if (typeof document !== 'undefined') {
 document.addEventListener('DOMContentLoaded', () => {
     const audio = document.getElementById('audio-stream');
     const playBtn = document.getElementById('play-btn');
+    const navPlayBtn = document.getElementById('nav-play-btn');
+    const navPlayLabel = document.getElementById('nav-play-label');
+    const playerStatusLabel = document.getElementById('player-status-label');
+    const eqBars = document.getElementById('eq-bars');
+    const volumeSlider = document.getElementById('volume-slider');
+    const muteBtn = document.getElementById('mute-btn');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navLinks = document.getElementById('nav-links');
+    const studioEyebrow = document.getElementById('studio-eyebrow');
+
     const albumArtImg = document.getElementById('album-art');
     const nowPlayingInfo = document.getElementById('now-playing-info');
     const trackDj = document.getElementById('track-dj');
@@ -209,6 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const trackArtist = document.getElementById('track-artist');
     const historyGrid = document.getElementById('history-grid');
+    const selectorCards = document.querySelectorAll('.selector-card[data-dj-id]');
 
     let isPlaying = false;
     let liveDjs = DEFAULT_LIVE_DJS.slice();
@@ -223,9 +234,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const streamUrl = 'https://a13.asurahosting.com/listen/coolanddeadlyreggae.com/radio.mp3';
     const apiUrl = 'https://a13.asurahosting.com/api/nowplaying/96';
     const djManifestUrl = 'assets/djs/djs.json';
-    const fallbackImage = 'coolanddeadlyreggae no album cover art found.png';
+    const fallbackImage = 'assets/djs/station-logo.png';
     const rotatingStationLogo = 'assets/djs/station-logo.png';
-    audio.src = streamUrl;
+    if (audio) {
+        audio.src = streamUrl;
+        audio.volume = volumeSlider ? Number(volumeSlider.value) || 0.9 : 0.9;
+    }
 
     // Preload rotating station logo so transitions are instant
     const preloadedLogo = new Image();
@@ -233,6 +247,93 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Album Art Cache
     const artCache = {};
+
+    // Mobile nav toggle
+    if (mobileMenuBtn && navLinks) {
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('open');
+        });
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+    }
+
+    function setPlayingUI(playing) {
+        isPlaying = playing;
+        if (playBtn) {
+            playBtn.classList.toggle('playing', playing);
+            playBtn.textContent = playing ? '⏸' : '▶';
+            playBtn.setAttribute('aria-label', playing ? 'Pause live radio stream' : 'Play live radio stream');
+        }
+        if (navPlayBtn) {
+            navPlayBtn.classList.toggle('is-playing', playing);
+        }
+        if (navPlayLabel) {
+            navPlayLabel.textContent = playing ? 'Pause Live' : 'Listen Live';
+        }
+        if (eqBars) {
+            eqBars.classList.toggle('active', playing);
+        }
+        if (playerStatusLabel) {
+            playerStatusLabel.textContent = playing ? 'Now Streaming Live' : 'Click Play to Tune In';
+        }
+    }
+
+    function updateMuteIcon() {
+        if (!muteBtn || !audio) return;
+        const muted = audio.muted || audio.volume === 0;
+        muteBtn.style.opacity = muted ? '0.45' : '1';
+        muteBtn.setAttribute('aria-label', muted ? 'Unmute stream' : 'Mute stream');
+    }
+
+    if (volumeSlider && audio) {
+        volumeSlider.addEventListener('input', () => {
+            const val = Number(volumeSlider.value);
+            audio.volume = Number.isFinite(val) ? Math.min(1, Math.max(0, val)) : 0.9;
+            if (audio.volume > 0 && audio.muted) {
+                audio.muted = false;
+            }
+            updateMuteIcon();
+        });
+    }
+
+    if (muteBtn && audio) {
+        muteBtn.addEventListener('click', () => {
+            audio.muted = !audio.muted;
+            updateMuteIcon();
+        });
+    }
+
+    function togglePlayback() {
+        if (!audio) return;
+        if (isPlaying) {
+            audio.pause();
+            setPlayingUI(false);
+        } else {
+            audio.src = streamUrl + '?' + Date.now(); // Cache busting
+            audio.play().then(() => {
+                setPlayingUI(true);
+            }).catch((e) => {
+                console.error('Playback failed:', e);
+                setPlayingUI(false);
+                if (playerStatusLabel) {
+                    playerStatusLabel.textContent = 'Stream unavailable — click to retry';
+                }
+            });
+        }
+    }
+
+    if (playBtn) playBtn.addEventListener('click', togglePlayback);
+    if (navPlayBtn) navPlayBtn.addEventListener('click', togglePlayback);
+
+    function highlightActiveSelector(djId) {
+        selectorCards.forEach((card) => {
+            const isMatch = Boolean(djId) && card.getAttribute('data-dj-id') === djId;
+            card.classList.toggle('is-on-air', isMatch);
+        });
+    }
 
     function clampSeconds(value, fallback) {
         const num = Number(value);
@@ -248,10 +349,11 @@ document.addEventListener('DOMContentLoaded', () => {
         activeDjRotationKey = null;
         activeDjPortraitUrl = null;
         showingStationLogo = false;
-        albumArtImg.classList.remove('is-station-logo');
+        if (albumArtImg) albumArtImg.classList.remove('is-station-logo');
     }
 
     function setAlbumArtSmooth(nextUrl, { isDjPortrait = false, isStationLogo = false, isVinyl = false, fade = false } = {}) {
+        if (!albumArtImg) return;
         const applyClasses = () => {
             albumArtImg.classList.toggle('is-dj-portrait', isDjPortrait);
             albumArtImg.classList.toggle('is-station-logo', isStationLogo);
@@ -365,52 +467,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Attempt Autoplay on Load
-    audio.play().then(() => {
-        isPlaying = true;
-        playBtn.classList.add('playing');
-        playBtn.textContent = '⏸';
-    }).catch(() => {
-        console.log("Autoplay blocked by browser policy. User must click play.");
-    });
-
-    // Play/Pause Logic (Minimal Button)
-    playBtn.addEventListener('click', () => {
-        if (isPlaying) {
-            audio.pause();
-            isPlaying = false;
-            playBtn.classList.remove('playing');
-            playBtn.textContent = '▶';
-        } else {
-            audio.src = streamUrl + '?' + new Date().getTime(); // Cache busting
-            audio.play().then(() => {
-                isPlaying = true;
-                playBtn.classList.add('playing');
-                playBtn.textContent = '⏸';
-            }).catch(e => {
-                console.error("Playback failed:", e);
-                alert("Could not start the stream. Please try again.");
-            });
-        }
-    });
+    // Attempt Autoplay on Load (silently falls back to Click Play if blocked by browser policy)
+    if (audio) {
+        audio.play().then(() => {
+            setPlayingUI(true);
+        }).catch(() => {
+            setPlayingUI(false);
+        });
+    }
 
     // --- Metadata & Album Art Logic ---
     async function fetchITunesArt(artist, title) {
         if (!artist || !title) return null;
 
-        // Guard against generic streaming metadata that iTunes will falsely match
         const lowerArtist = artist.toLowerCase();
         const lowerTitle = title.toLowerCase();
 
         if (lowerArtist.includes('unknown') || lowerTitle.includes('unknown') || lowerTitle.startsWith('track ')) {
-            return null; // Skip iTunes and go straight to fallback
+            return null;
         }
 
         const queryKey = `${artist}_${title}`.toLowerCase();
         if (artCache[queryKey] !== undefined) return artCache[queryKey];
 
-        let cleanArtist = artist.replace(/\(.*?\)/g, ' ').replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim();
-        let cleanTitle = title.replace(/\(.*?\)/g, ' ').replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim();
+        const cleanArtist = artist.replace(/\(.*?\)/g, ' ').replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim();
+        const cleanTitle = title.replace(/\(.*?\)/g, ' ').replace(/[-_]/g, ' ').replace(/\s+/g, ' ').trim();
 
         try {
             const query = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
@@ -427,7 +508,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         } catch (e) {
-            console.error("iTunes fetch error:", e);
+            console.error('iTunes fetch error:', e);
         }
 
         artCache[queryKey] = null;
@@ -465,39 +546,49 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Line 1: Live DJ Name (e.g., "Live DJ ILaw")
                     // Line 2: Show Name (e.g., "Roots Rock Reggae Vibration") or Artist
                     // Line 3: Artist - Song Title (when song info is available)
+                    if (studioEyebrow) studioEyebrow.textContent = 'Live Selector On Air Now';
                     if (nowPlayingInfo) nowPlayingInfo.classList.add('is-live-dj');
                     if (trackDj && trackDjName) {
                         trackDjName.textContent = matchedDj.displayName;
                         trackDj.style.display = 'inline-flex';
                     }
+                    highlightActiveSelector(matchedDj.id);
 
                     if (matchedDj.showName) {
-                        trackArtist.textContent = matchedDj.showName;
-                        trackArtist.style.display = '';
-                        applyResponsiveFont(trackArtist, matchedDj.showName, 40, 25, '0.95rem', '1.1rem');
+                        if (trackArtist) {
+                            trackArtist.textContent = matchedDj.showName;
+                            trackArtist.style.display = '';
+                            applyResponsiveFont(trackArtist, matchedDj.showName, 48, 34, '1.35rem', '1.6rem');
+                        }
 
                         const trackLine = [matchedDj.artist, matchedDj.title].filter(Boolean).join(' - ');
-                        if (trackLine) {
-                            trackTitle.textContent = trackLine;
-                            trackTitle.style.display = '';
-                            applyResponsiveFont(trackTitle, trackLine, 40, 25, '0.9rem', '1.0rem');
-                        } else {
-                            trackTitle.textContent = '';
-                            trackTitle.style.display = 'none';
+                        if (trackTitle) {
+                            if (trackLine) {
+                                trackTitle.textContent = trackLine;
+                                trackTitle.style.display = '';
+                                applyResponsiveFont(trackTitle, trackLine, 55, 38, '0.92rem', '0.98rem');
+                            } else {
+                                trackTitle.textContent = '';
+                                trackTitle.style.display = 'none';
+                            }
                         }
                     } else {
                         const line2Artist = matchedDj.artist || 'Live in the Mix';
-                        trackArtist.textContent = line2Artist;
-                        trackArtist.style.display = '';
-                        applyResponsiveFont(trackArtist, line2Artist, 40, 25, '0.95rem', '1.1rem');
+                        if (trackArtist) {
+                            trackArtist.textContent = line2Artist;
+                            trackArtist.style.display = '';
+                            applyResponsiveFont(trackArtist, line2Artist, 48, 34, '1.35rem', '1.6rem');
+                        }
 
-                        if (matchedDj.title) {
-                            trackTitle.textContent = matchedDj.title;
-                            trackTitle.style.display = '';
-                            applyResponsiveFont(trackTitle, matchedDj.title, 40, 25, '0.9rem', '1.0rem');
-                        } else {
-                            trackTitle.textContent = '';
-                            trackTitle.style.display = 'none';
+                        if (trackTitle) {
+                            if (matchedDj.title) {
+                                trackTitle.textContent = matchedDj.title;
+                                trackTitle.style.display = '';
+                                applyResponsiveFont(trackTitle, matchedDj.title, 55, 38, '0.92rem', '0.98rem');
+                            } else {
+                                trackTitle.textContent = '';
+                                trackTitle.style.display = 'none';
+                            }
                         }
                     }
 
@@ -507,19 +598,25 @@ document.addEventListener('DOMContentLoaded', () => {
                 } else {
                     // Standard 2-Line AutoDJ Display
                     stopDjArtRotation();
+                    highlightActiveSelector(null);
+                    if (studioEyebrow) studioEyebrow.textContent = 'Strictly Roots, Rocksteady & Lovers Rock';
                     if (nowPlayingInfo) nowPlayingInfo.classList.remove('is-live-dj');
                     if (trackDj) trackDj.style.display = 'none';
-                    albumArtImg.classList.remove('is-dj-portrait');
+                    if (albumArtImg) albumArtImg.classList.remove('is-dj-portrait');
 
-                    const currentTitle = song.title || "Live Stream";
-                    trackTitle.textContent = currentTitle;
-                    trackTitle.style.display = '';
-                    applyResponsiveFont(trackTitle, currentTitle, 40, 25, '1.0rem', '1.15rem');
+                    const currentTitle = song.title || 'Live Stream';
+                    if (trackTitle) {
+                        trackTitle.textContent = currentTitle;
+                        trackTitle.style.display = '';
+                        applyResponsiveFont(trackTitle, currentTitle, 52, 36, '1.35rem', '1.6rem');
+                    }
 
-                    const currentArtist = song.artist || "Cool and Deadly Reggae";
-                    trackArtist.textContent = currentArtist;
-                    trackArtist.style.display = '';
-                    applyResponsiveFont(trackArtist, currentArtist, 40, 25, '0.85rem', '0.95rem');
+                    const currentArtist = song.artist || 'Cool & Deadly Reggae FM';
+                    if (trackArtist) {
+                        trackArtist.textContent = currentArtist;
+                        trackArtist.style.display = '';
+                        applyResponsiveFont(trackArtist, currentArtist, 48, 32, '0.92rem', '1.0rem');
+                    }
 
                     const lowerArtist = (song.artist || '').toLowerCase();
                     const lowerTitle = (song.title || '').toLowerCase();
@@ -541,7 +638,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         artUrl = song.art;
                     }
 
-                    // If it's the generic AzuraCast default or missing, use our fallback
+                    // If it's the generic AzuraCast default or missing, use our station logo
                     if (
                         !artUrl ||
                         artUrl.includes('album_art.png') ||
@@ -554,53 +651,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     setAlbumArtSmooth(artUrl, {
                         isDjPortrait: false,
-                        isStationLogo: false,
+                        isStationLogo: artUrl === fallbackImage,
                         isVinyl: artUrl !== fallbackImage,
                         fade: false
                     });
                 }
 
-                // Update History Grid
-                if (historyGrid && data.song_history && data.song_history.length > 0) {
+                // Update History List (up to 4 recently spun tracks)
+                if (historyGrid && Array.isArray(data.song_history) && data.song_history.length > 0) {
                     historyGrid.innerHTML = '';
 
-                    // Display exactly 3 songs so it fits perfectly flush with the logo
-                    for (let i = 0; i < Math.min(3, data.song_history.length); i++) {
+                    const count = Math.min(4, data.song_history.length);
+                    for (let i = 0; i < count; i++) {
                         const item = data.song_history[i];
-                        const s = item.song;
+                        const s = (item && item.song) || {};
+                        const sTitle = s.title || 'Unknown Title';
+                        const sArtist = s.artist || 'Unknown Artist';
 
-                        const sTitle = s.title || "Unknown";
-                        let titleStyle = "";
+                        const row = document.createElement('div');
+                        row.className = 'history-item';
 
-                        if (sTitle.length > 35) {
-                            titleStyle = "font-size: 0.85rem;";
-                        } else if (sTitle.length > 20) {
-                            titleStyle = "font-size: 0.95rem;";
-                        }
+                        const idx = document.createElement('span');
+                        idx.className = 'history-index';
+                        idx.textContent = String(i + 1).padStart(2, '0');
 
-                        const sArtist = s.artist || "Unknown";
-                        let artistStyle = "";
+                        const info = document.createElement('div');
+                        info.className = 'history-info';
 
-                        if (sArtist.length > 35) {
-                            artistStyle = "font-size: 0.7rem;";
-                        } else if (sArtist.length > 20) {
-                            artistStyle = "font-size: 0.8rem;";
-                        }
+                        const titleEl = document.createElement('div');
+                        titleEl.className = 'history-title-text';
+                        titleEl.textContent = sTitle;
+                        titleEl.title = sTitle;
 
-                        const div = document.createElement('div');
-                        div.className = 'history-item';
-                        div.innerHTML = `
-                            <div class="history-info">
-                                <h3 class="history-title-text" style="${titleStyle}">${sTitle}</h3>
-                                <p class="history-artist" style="${artistStyle}">${sArtist}</p>
-                            </div>
-                        `;
-                        historyGrid.appendChild(div);
+                        const artistEl = document.createElement('div');
+                        artistEl.className = 'history-artist';
+                        artistEl.textContent = sArtist;
+                        artistEl.title = sArtist;
+
+                        info.appendChild(titleEl);
+                        info.appendChild(artistEl);
+                        row.appendChild(idx);
+                        row.appendChild(info);
+                        historyGrid.appendChild(row);
                     }
                 }
             }
         } catch (err) {
-            console.error("Failed to fetch now playing:", err);
+            console.error('Failed to fetch now playing:', err);
         }
     }
 
