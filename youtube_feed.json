@@ -1,8 +1,16 @@
 {
   "channel_id": "UCWtmlOTTFrYL85ARKxdEdTw",
   "channel_url": "https://www.youtube.com/@coolanddeadlyreggae",
-  "updated_at": "2026-11-28T14:02:52.777417-05:00",
+  "updated_at": "2026-11-28T14:10:46.621822-05:00",
   "videos": [
+    {
+      "id": "07pnz7XtRdo",
+      "title": "🎶 Gregory Isaacs: The Cool Ruler & 'Night Nurse' 🎶 | #Shorts",
+      "published": "2026-11-28T19:00:50+00:00",
+      "url": "https://www.youtube.com/shorts/07pnz7XtRdo",
+      "thumbnail": "https://i.ytimg.com/vi/07pnz7XtRdo/hqdefault.jpg",
+      "is_short": true
+    },
     {
       "id": "jr0sTtRH6OU",
       "title": "Hawkeye Featured on Mikey Spice’s ‘Spice Rock 2’ Project | #Shorts",
@@ -113,14 +121,6 @@
       "published": "2026-11-26T13:01:09+00:00",
       "url": "https://www.youtube.com/shorts/Z6-T5yEjgHQ",
       "thumbnail": "https://i.ytimg.com/vi/Z6-T5yEjgHQ/hqdefault.jpg",
-      "is_short": true
-    },
-    {
-      "id": "5kLQC6pVYiI",
-      "title": "Part 4: The Black Ark Alchemy: How Lee 'Scratch' Perry Built Reggae's Sonic Temple #Shorts",
-      "published": "2026-11-26T00:10:26+00:00",
-      "url": "https://www.youtube.com/shorts/5kLQC6pVYiI",
-      "thumbnail": "https://i.ytimg.com/vi/5kLQC6pVYiI/hqdefault.jpg",
       "is_short": true
     }
   ]
