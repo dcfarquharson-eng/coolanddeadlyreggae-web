@@ -23,7 +23,7 @@ const DEFAULT_LIVE_DJS = [
         displayName: 'Live Father Copper',
         showName: 'Father Copper Showcase',
         pattern: 'live[\\s_-]*father[\\s_-]*copper',
-        streamerNames: [],
+        streamerNames: ['copperintl@yahoo.com'],
         imageUrl: 'https://coolanddeadlyreggae.com/assets/djs/father-copper.jpg',
         webPath: 'assets/djs/father-copper.jpg'
     }
