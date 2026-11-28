@@ -3,34 +3,77 @@ const DEFAULT_LIVE_DJS = [
     {
         id: 'dj_digital',
         displayName: 'Live DJ Digital',
+        showName: 'Saturday Night Shakedown',
         pattern: 'live[\\s_-]*dj[\\s_-]*digital',
+        streamerNames: [],
         imageUrl: 'https://coolanddeadlyreggae.com/assets/djs/dj-digital.jpg',
         webPath: 'assets/djs/dj-digital.jpg'
     },
     {
         id: 'dj_ilaw',
         displayName: 'Live DJ ILaw',
+        showName: 'Roots Rock Reggae Vibration',
         pattern: 'live[\\s_-]*dj[\\s_-]*i[\\s_-]*law',
+        streamerNames: ['raslaw@hotmail.com'],
         imageUrl: 'https://coolanddeadlyreggae.com/assets/djs/dj-ilaw.jpg',
         webPath: 'assets/djs/dj-ilaw.jpg'
     },
     {
         id: 'father_copper',
         displayName: 'Live Father Copper',
+        showName: 'Father Copper Showcase',
         pattern: 'live[\\s_-]*father[\\s_-]*copper',
+        streamerNames: [],
         imageUrl: 'https://coolanddeadlyreggae.com/assets/djs/father-copper.jpg',
         webPath: 'assets/djs/father-copper.jpg'
     }
 ];
 
+function escapeRegex(str) {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 function stripDjPrefix(value, regex) {
     if (!value) return '';
-    return value
-        .replace(regex, '')
+    const cleaned = regex ? value.replace(regex, '') : value;
+    return cleaned
         .replace(/^[\s\-_:•|]+/, '')
         .replace(/[\s\-_:•|]+$/, '')
         .replace(/\s+/g, ' ')
         .trim();
+}
+
+function stripBroadcastTimestamp(value) {
+    if (!value) return '';
+    const stripped = value.replace(/[\s_-]+\d+m$/i, '').trim();
+    if (/^\d+m$/i.test(stripped)) return '';
+    return stripped;
+}
+
+function stripShowName(value, showName) {
+    if (!value || !showName || !showName.trim()) return value || '';
+    const words = showName
+        .trim()
+        .split(/[\s_\-,]+/)
+        .filter(Boolean)
+        .map(escapeRegex);
+    if (!words.length) return value;
+
+    const showRegex = new RegExp(words.join('[\\s_\\-,]+'), 'ig');
+    return value
+        .replace(showRegex, '')
+        .replace(/^[\s\-_:•|]+/, '')
+        .replace(/[\s\-_:•|]+$/, '')
+        .replace(/\s+/g, ' ')
+        .trim();
+}
+
+function cleanLiveField(value, regex, showName) {
+    let cleaned = stripDjPrefix(value, regex);
+    cleaned = stripBroadcastTimestamp(cleaned);
+    cleaned = stripShowName(cleaned, showName);
+    cleaned = stripBroadcastTimestamp(cleaned);
+    return cleaned;
 }
 
 function splitArtistTitle(text) {
@@ -45,58 +88,110 @@ function splitArtistTitle(text) {
     return { artist: text.trim(), title: '' };
 }
 
-function parseLiveDj(song, djList) {
+function matchStreamer(dj, streamerName) {
+    if (!streamerName || !Array.isArray(dj.streamerNames)) return false;
+    const target = streamerName.trim().toLowerCase();
+    if (!target) return false;
+    return dj.streamerNames.some(
+        (name) => typeof name === 'string' && name.trim().toLowerCase() === target
+    );
+}
+
+function parseLiveDj(song, djList, liveInfo = null) {
     const rawArtist = (song && song.artist ? String(song.artist) : '').trim();
     const rawTitle = (song && song.title ? String(song.title) : '').trim();
     const rawText = (song && song.text ? String(song.text) : '').trim();
     const combined = rawText || [rawArtist, rawTitle].filter(Boolean).join(' - ');
+    const isLive = Boolean(liveInfo && liveInfo.isLive);
+    const streamerName = isLive && liveInfo && liveInfo.streamerName
+        ? String(liveInfo.streamerName).trim()
+        : '';
 
-    if (!combined) return null;
+    if (!combined && !streamerName) return null;
+
+    let matchedDj = null;
+    let matchedRegex = null;
+    let matchedByPattern = false;
 
     for (const dj of djList) {
-        let regex;
+        let regex = null;
         try {
-            regex = new RegExp(dj.pattern, 'i');
+            if (dj.pattern) regex = new RegExp(dj.pattern, 'i');
         } catch (e) {
-            continue;
+            regex = null;
         }
+        if (regex && combined && regex.test(combined)) {
+            matchedDj = dj;
+            matchedRegex = regex;
+            matchedByPattern = true;
+            break;
+        }
+    }
 
-        if (!regex.test(combined)) continue;
+    if (!matchedDj && streamerName) {
+        for (const dj of djList) {
+            if (matchStreamer(dj, streamerName)) {
+                matchedDj = dj;
+                try {
+                    if (dj.pattern) matchedRegex = new RegExp(dj.pattern, 'i');
+                } catch (e) {
+                    matchedRegex = null;
+                }
+                break;
+            }
+        }
+    }
 
-        let artist = '';
-        let title = '';
+    if (!matchedDj) return null;
 
-        if (rawArtist && regex.test(rawArtist)) {
-            artist = stripDjPrefix(rawArtist, regex);
-            title = stripDjPrefix(rawTitle, regex);
+    const showName = (matchedDj.showName || '').trim();
+    let artist = '';
+    let title = '';
+
+    if (matchedByPattern && matchedRegex) {
+        if (rawArtist && matchedRegex.test(rawArtist)) {
+            artist = cleanLiveField(rawArtist, matchedRegex, showName);
+            title = cleanLiveField(rawTitle, matchedRegex, showName);
 
             if (!artist && title) {
                 const split = splitArtistTitle(title);
                 artist = split.artist;
                 title = split.title;
             }
-        } else if (rawTitle && regex.test(rawTitle) && !rawArtist) {
-            const cleaned = stripDjPrefix(rawTitle, regex);
+        } else if (rawTitle && matchedRegex.test(rawTitle) && !rawArtist) {
+            const cleaned = cleanLiveField(rawTitle, matchedRegex, showName);
             const split = splitArtistTitle(cleaned);
             artist = split.artist;
             title = split.title;
         } else {
-            const remainder = stripDjPrefix(combined, regex);
+            const remainder = cleanLiveField(combined, matchedRegex, showName);
             const split = splitArtistTitle(remainder);
             artist = split.artist;
             title = split.title;
         }
-
-        return {
-            id: dj.id,
-            displayName: dj.displayName,
-            imageUrl: dj.webPath || dj.imageUrl,
-            artist,
-            title
-        };
+    } else if (rawArtist || rawTitle) {
+        artist = cleanLiveField(rawArtist, matchedRegex, showName);
+        title = cleanLiveField(rawTitle, matchedRegex, showName);
+        if (!artist && title) {
+            const split = splitArtistTitle(title);
+            artist = split.artist;
+            title = split.title;
+        }
+    } else if (combined) {
+        const remainder = cleanLiveField(combined, matchedRegex, showName);
+        const split = splitArtistTitle(remainder);
+        artist = split.artist;
+        title = split.title;
     }
 
-    return null;
+    return {
+        id: matchedDj.id,
+        displayName: matchedDj.displayName,
+        showName,
+        imageUrl: matchedDj.webPath || matchedDj.imageUrl,
+        artist,
+        title
+    };
 }
 
 if (typeof module !== 'undefined' && module.exports) {
@@ -229,33 +324,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (data && data.now_playing && data.now_playing.song) {
                 const song = data.now_playing.song;
-                const matchedDj = parseLiveDj(song, liveDjs);
+                const liveInfo = {
+                    isLive: Boolean(data.live && data.live.is_live),
+                    streamerName: (data.live && data.live.streamer_name) || data.now_playing.streamer || ''
+                };
+                const matchedDj = parseLiveDj(song, liveDjs, liveInfo);
 
                 let artUrl = null;
 
                 if (matchedDj) {
                     // 3-Line Live DJ Display:
-                    // Line 1: Live DJ Name (e.g., "Live DJ Digital")
-                    // Line 2: Artist Name (e.g., "Bob Marley")
-                    // Line 3: Song Title (e.g., "One Love")
+                    // Line 1: Live DJ Name (e.g., "Live DJ ILaw")
+                    // Line 2: Show Name (e.g., "Roots Rock Reggae Vibration") or Artist
+                    // Line 3: Artist - Song Title (when song info is available)
                     if (nowPlayingInfo) nowPlayingInfo.classList.add('is-live-dj');
                     if (trackDj && trackDjName) {
                         trackDjName.textContent = matchedDj.displayName;
                         trackDj.style.display = 'inline-flex';
                     }
 
-                    const line2Artist = matchedDj.artist || 'Live in the Mix';
-                    trackArtist.textContent = line2Artist;
-                    trackArtist.style.display = '';
-                    applyResponsiveFont(trackArtist, line2Artist, 40, 25, '0.95rem', '1.1rem');
+                    if (matchedDj.showName) {
+                        trackArtist.textContent = matchedDj.showName;
+                        trackArtist.style.display = '';
+                        applyResponsiveFont(trackArtist, matchedDj.showName, 40, 25, '0.95rem', '1.1rem');
 
-                    if (matchedDj.title) {
-                        trackTitle.textContent = matchedDj.title;
-                        trackTitle.style.display = '';
-                        applyResponsiveFont(trackTitle, matchedDj.title, 40, 25, '0.9rem', '1.0rem');
+                        const trackLine = [matchedDj.artist, matchedDj.title].filter(Boolean).join(' - ');
+                        if (trackLine) {
+                            trackTitle.textContent = trackLine;
+                            trackTitle.style.display = '';
+                            applyResponsiveFont(trackTitle, trackLine, 40, 25, '0.9rem', '1.0rem');
+                        } else {
+                            trackTitle.textContent = '';
+                            trackTitle.style.display = 'none';
+                        }
                     } else {
-                        trackTitle.textContent = '';
-                        trackTitle.style.display = 'none';
+                        const line2Artist = matchedDj.artist || 'Live in the Mix';
+                        trackArtist.textContent = line2Artist;
+                        trackArtist.style.display = '';
+                        applyResponsiveFont(trackArtist, line2Artist, 40, 25, '0.95rem', '1.1rem');
+
+                        if (matchedDj.title) {
+                            trackTitle.textContent = matchedDj.title;
+                            trackTitle.style.display = '';
+                            applyResponsiveFont(trackTitle, matchedDj.title, 40, 25, '0.9rem', '1.0rem');
+                        } else {
+                            trackTitle.textContent = '';
+                            trackTitle.style.display = 'none';
+                        }
                     }
 
                     // Override cover art directly with the Live DJ's portrait

@@ -1,10 +1,12 @@
 {
-  "version": 1,
+  "version": 2,
   "djs": [
     {
       "id": "dj_digital",
       "displayName": "Live DJ Digital",
+      "showName": "Saturday Night Shakedown",
       "pattern": "live[\\s_-]*dj[\\s_-]*digital",
+      "streamerNames": [],
       "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/dj-digital.jpg",
       "webPath": "assets/djs/dj-digital.jpg",
       "localAsset": "assets/djs/dj-digital.jpg"
@@ -12,7 +14,11 @@
     {
       "id": "dj_ilaw",
       "displayName": "Live DJ ILaw",
+      "showName": "Roots Rock Reggae Vibration",
       "pattern": "live[\\s_-]*dj[\\s_-]*i[\\s_-]*law",
+      "streamerNames": [
+        "raslaw@hotmail.com"
+      ],
       "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/dj-ilaw.jpg",
       "webPath": "assets/djs/dj-ilaw.jpg",
       "localAsset": "assets/djs/dj-ilaw.jpg"
@@ -20,7 +26,9 @@
     {
       "id": "father_copper",
       "displayName": "Live Father Copper",
+      "showName": "Father Copper Showcase",
       "pattern": "live[\\s_-]*father[\\s_-]*copper",
+      "streamerNames": [],
       "imageUrl": "https://coolanddeadlyreggae.com/assets/djs/father-copper.jpg",
       "webPath": "assets/djs/father-copper.jpg",
       "localAsset": "assets/djs/father-copper.jpg"
