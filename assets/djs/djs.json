@@ -1,5 +1,10 @@
 {
-  "version": 2,
+  "version": 3,
+  "rotation": {
+    "enabled": true,
+    "djSeconds": 10,
+    "logoSeconds": 5
+  },
   "djs": [
     {
       "id": "dj_digital",

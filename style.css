@@ -199,15 +199,25 @@ body {
     object-fit: cover;
     position: absolute;
     z-index: 3;
-    transition: all 0.3s ease;
+    transition: opacity 0.6s ease, transform 0.3s ease;
     border-radius: 50%;
     box-shadow: 0 0 15px rgba(0,0,0,0.8);
     display: block; /* Always show */
+    opacity: 1;
+}
+
+.record-sleeve.is-fading {
+    opacity: 0;
 }
 
 .record-sleeve.is-dj-portrait {
     object-fit: cover;
     object-position: center top;
+}
+
+.record-sleeve.is-station-logo {
+    object-fit: cover;
+    object-position: center center;
 }
 
 .record-hole {
@@ -225,8 +235,9 @@ body {
     display: block; /* Always show the hole */
 }
 
-.record-sleeve.is-dj-portrait + .record-hole {
-    display: none; /* Hide vinyl spindle hole when showing a Live DJ portrait */
+.record-sleeve.is-dj-portrait + .record-hole,
+.record-sleeve.is-station-logo + .record-hole {
+    display: none; /* Hide vinyl spindle hole when showing a Live DJ portrait or rotating station logo */
 }
 
 .now-playing-info {

@@ -212,18 +212,139 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let isPlaying = false;
     let liveDjs = DEFAULT_LIVE_DJS.slice();
+    let artRotationConfig = { enabled: true, djSeconds: 10, logoSeconds: 5 };
+    let activeDjRotationKey = null;
+    let activeDjPortraitUrl = null;
+    let showingStationLogo = false;
+    let djRotationTimer = null;
+    let fadeSwapTimer = null;
 
     // Stream & API Configuration
     const streamUrl = 'https://a13.asurahosting.com/listen/coolanddeadlyreggae.com/radio.mp3';
     const apiUrl = 'https://a13.asurahosting.com/api/nowplaying/96';
     const djManifestUrl = 'assets/djs/djs.json';
     const fallbackImage = 'coolanddeadlyreggae no album cover art found.png';
+    const rotatingStationLogo = 'assets/djs/station-logo.png';
     audio.src = streamUrl;
+
+    // Preload rotating station logo so transitions are instant
+    const preloadedLogo = new Image();
+    preloadedLogo.src = rotatingStationLogo;
 
     // Album Art Cache
     const artCache = {};
 
-    // Load remote DJ manifest so future DJs/photos update dynamically without code changes
+    function clampSeconds(value, fallback) {
+        const num = Number(value);
+        if (!Number.isFinite(num)) return fallback;
+        return Math.min(120, Math.max(3, Math.round(num)));
+    }
+
+    function stopDjArtRotation() {
+        if (djRotationTimer) {
+            clearTimeout(djRotationTimer);
+            djRotationTimer = null;
+        }
+        activeDjRotationKey = null;
+        activeDjPortraitUrl = null;
+        showingStationLogo = false;
+        albumArtImg.classList.remove('is-station-logo');
+    }
+
+    function setAlbumArtSmooth(nextUrl, { isDjPortrait = false, isStationLogo = false, isVinyl = false, fade = false } = {}) {
+        const applyClasses = () => {
+            albumArtImg.classList.toggle('is-dj-portrait', isDjPortrait);
+            albumArtImg.classList.toggle('is-station-logo', isStationLogo);
+            albumArtImg.classList.toggle('is-vinyl', isVinyl);
+        };
+
+        const alreadyShown = albumArtImg.src && albumArtImg.src.includes(encodeURI(nextUrl));
+        if (alreadyShown) {
+            applyClasses();
+            return;
+        }
+
+        if (!fade) {
+            if (fadeSwapTimer) {
+                clearTimeout(fadeSwapTimer);
+                fadeSwapTimer = null;
+            }
+            albumArtImg.classList.remove('is-fading');
+            applyClasses();
+            albumArtImg.src = nextUrl;
+            return;
+        }
+
+        if (fadeSwapTimer) {
+            clearTimeout(fadeSwapTimer);
+            fadeSwapTimer = null;
+        }
+        albumArtImg.classList.add('is-fading');
+        fadeSwapTimer = setTimeout(() => {
+            applyClasses();
+            albumArtImg.src = nextUrl;
+            requestAnimationFrame(() => {
+                albumArtImg.classList.remove('is-fading');
+            });
+            fadeSwapTimer = null;
+        }, 350);
+    }
+
+    function scheduleNextDjArtSwap() {
+        if (djRotationTimer) {
+            clearTimeout(djRotationTimer);
+            djRotationTimer = null;
+        }
+        if (!activeDjRotationKey || !activeDjPortraitUrl || !artRotationConfig.enabled || document.hidden) {
+            return;
+        }
+        const delayMs = (showingStationLogo ? artRotationConfig.logoSeconds : artRotationConfig.djSeconds) * 1000;
+        djRotationTimer = setTimeout(() => {
+            if (!activeDjRotationKey || !activeDjPortraitUrl || !artRotationConfig.enabled || document.hidden) {
+                return;
+            }
+            showingStationLogo = !showingStationLogo;
+            if (showingStationLogo) {
+                setAlbumArtSmooth(rotatingStationLogo, { isStationLogo: true, fade: true });
+            } else {
+                setAlbumArtSmooth(activeDjPortraitUrl, { isDjPortrait: true, fade: true });
+            }
+            scheduleNextDjArtSwap();
+        }, delayMs);
+    }
+
+    function syncDjArtRotation(djKey, portraitUrl) {
+        if (!artRotationConfig.enabled) {
+            stopDjArtRotation();
+            setAlbumArtSmooth(portraitUrl, { isDjPortrait: true, fade: false });
+            return;
+        }
+
+        const isNewDj = activeDjRotationKey !== djKey || activeDjPortraitUrl !== portraitUrl;
+        activeDjRotationKey = djKey;
+        activeDjPortraitUrl = portraitUrl;
+
+        if (isNewDj) {
+            showingStationLogo = false;
+            setAlbumArtSmooth(portraitUrl, { isDjPortrait: true, fade: false });
+            scheduleNextDjArtSwap();
+        } else if (!djRotationTimer && !document.hidden) {
+            scheduleNextDjArtSwap();
+        }
+    }
+
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            if (djRotationTimer) {
+                clearTimeout(djRotationTimer);
+                djRotationTimer = null;
+            }
+        } else if (activeDjRotationKey && artRotationConfig.enabled) {
+            scheduleNextDjArtSwap();
+        }
+    });
+
+    // Load remote DJ manifest so future DJs/photos/rotation update dynamically without code changes
     async function loadDjManifest() {
         try {
             const res = await fetch(`${djManifestUrl}?t=${Math.floor(Date.now() / 60000)}`);
@@ -231,6 +352,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const manifest = await res.json();
             if (manifest && Array.isArray(manifest.djs) && manifest.djs.length > 0) {
                 liveDjs = manifest.djs;
+            }
+            if (manifest && manifest.rotation && typeof manifest.rotation === 'object') {
+                artRotationConfig = {
+                    enabled: manifest.rotation.enabled !== false,
+                    djSeconds: clampSeconds(manifest.rotation.djSeconds, 10),
+                    logoSeconds: clampSeconds(manifest.rotation.logoSeconds, 5)
+                };
             }
         } catch (e) {
             // Keep built-in DEFAULT_LIVE_DJS fallback
@@ -373,12 +501,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
 
-                    // Override cover art directly with the Live DJ's portrait
-                    artUrl = matchedDj.imageUrl;
-                    albumArtImg.classList.add('is-dj-portrait');
-                    albumArtImg.classList.remove('is-vinyl');
+                    // Smoothly alternate between the Live DJ portrait and the station logo
+                    const djKey = `${matchedDj.id}|${matchedDj.imageUrl}`;
+                    syncDjArtRotation(djKey, matchedDj.imageUrl);
                 } else {
                     // Standard 2-Line AutoDJ Display
+                    stopDjArtRotation();
                     if (nowPlayingInfo) nowPlayingInfo.classList.remove('is-live-dj');
                     if (trackDj) trackDj.style.display = 'none';
                     albumArtImg.classList.remove('is-dj-portrait');
@@ -424,17 +552,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         artUrl = fallbackImage;
                     }
 
-                    // Apply vinyl styling only when real album art is playing
-                    if (artUrl === fallbackImage) {
-                        albumArtImg.classList.remove('is-vinyl');
-                    } else {
-                        albumArtImg.classList.add('is-vinyl');
-                    }
-                }
-
-                // Only update if it actually changed to avoid flicker
-                if (!albumArtImg.src.includes(encodeURI(artUrl))) {
-                    albumArtImg.src = artUrl;
+                    setAlbumArtSmooth(artUrl, {
+                        isDjPortrait: false,
+                        isStationLogo: false,
+                        isVinyl: artUrl !== fallbackImage,
+                        fade: false
+                    });
                 }
 
                 // Update History Grid
