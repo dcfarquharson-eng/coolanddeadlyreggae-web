@@ -187,24 +187,30 @@ section[id], main[id] {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 0.45rem;
+    gap: 0.55rem;
 }
 
 .nav-links a {
-    font-size: 1.06rem;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: #ffffff;
-    padding: 0.56rem 0.95rem;
+    padding: 0.5rem 1.05rem;
     border-radius: 999px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     white-space: nowrap;
-    transition: color 0.2s, background 0.2s;
+    transition: all 0.2s ease;
 }
 
 .nav-links a:hover {
-    color: var(--gold);
-    background: rgba(242, 183, 5, 0.12);
+    color: #060e09;
+    background: var(--gold);
+    border-color: var(--gold);
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(242, 183, 5, 0.28);
 }
 
 .nav-actions {
@@ -1740,12 +1746,12 @@ section[id], main[id] {
    RESPONSIVE BREAKPOINTS
    ========================================================================== */
 @media (max-width: 1560px) {
-    .nav-inner { gap: 1rem; }
-    .brand-title { font-size: 1.15rem; }
-    .brand-sub { font-size: 0.75rem; }
-    .nav-links { gap: 0.25rem; }
-    .nav-links a { font-size: 0.94rem; padding: 0.48rem 0.7rem; }
-    .nav-mini-play { font-size: 0.86rem; padding: 0.52rem 1rem; }
+    .nav-inner { gap: 0.9rem; }
+    .brand-title { font-size: 1.12rem; }
+    .brand-sub { font-size: 0.74rem; }
+    .nav-links { gap: 0.35rem; }
+    .nav-links a { font-size: 0.88rem; padding: 0.44rem 0.78rem; }
+    .nav-mini-play { font-size: 0.86rem; padding: 0.5rem 0.98rem; }
     .nav-social-btn { width: 38px; height: 38px; }
 }
 
