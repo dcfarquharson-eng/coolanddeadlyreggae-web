@@ -5,7 +5,7 @@ const DEFAULT_LIVE_DJS = [
         displayName: 'Live DJ Digital',
         showName: 'Saturday Night Shakedown',
         pattern: 'live[\\s_-]*dj[\\s_-]*digital',
-        streamerNames: [],
+        streamerNames: ['dcfarquharson@gmail.com'],
         imageUrl: 'https://coolanddeadlyreggae.com/assets/djs/dj-digital.jpg',
         webPath: 'assets/djs/dj-digital.jpg'
     },
